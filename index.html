@@ -1,54 +1,177 @@
-const escritos = [
-  {
-    titulo: "El Gesto",
-    texto: `Los músculos faciales en contracción y la mirada fija en un punto imaginario fuera del espacio. El objeto, por llamarlo de alguna manera, se ofrecía complejo, y él no podía más que orbitarlo. Y aunque el olor a otros nombres; parálisis por análisis; empujaba su cabeza hacia atrás y apretaba sus hombros, el antojo de que resultase respuesta a esta crisis de sentido era más que suficiente.
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REBIS — Obra Integral</title>
+    <meta name="description" content="Música, Cine y Pensamiento. Exploración sonora y visual de REBIS.">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#0d0d0d;--text:#e8e0d0;--muted:#7a7468;--border:#1e1e1e;--saturno:#7ab84e;--placeres:#b83232;--mercurial:#4a9cc8}
+        html{scroll-behavior:smooth}
+        body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-weight:300;overflow-x:hidden}
+        nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(13,13,13,0.95),transparent)}
+        .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.15em;color:var(--text);text-decoration:none;cursor:pointer}
+        .nav-links{display:flex;gap:2.5rem}
+        .nav-links a{font-size:0.65rem;letter-spacing:0.15em;color:var(--muted);text-decoration:none;text-transform:uppercase}
+        #hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
+        .hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;pointer-events:none}
+        .hero-col{border-right:0.5px solid var(--border);transition: background 0.3s ease;}
+        .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,20vw,18rem);letter-spacing:0.08em;line-height:0.9;text-align:center;z-index:2}
+        .hero-sub{font-size:0.6rem;letter-spacing:0.3em;color:var(--muted);margin-top:1.5rem;z-index:2}
+        #portales{display:grid;grid-template-columns:1fr 1fr 1fr;height:60vh;border-top:0.5px solid var(--border)}
+        .portal{position:relative;overflow:hidden;cursor:pointer;border-right:0.5px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;padding:2.5rem;transition:0.4s}
+        .portal:hover{background:rgba(255,255,255,0.02)}
+        .portal-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,3rem);letter-spacing:0.1em;line-height:1;margin-bottom:0.8rem}
+        .portal-desc{font-size:0.6rem;letter-spacing:0.08em;color:var(--muted)}
+        .seccion{padding:8rem 3rem;border-top:0.5px solid var(--border)}
+        .sec-header{display:flex;align-items:baseline;gap:2rem;margin-bottom:4rem}
+        .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:0.1em}
+        .sec-line{flex:1;height:0.5px;background:var(--border)}
+        .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
+        .video-wrap{position:relative;padding-bottom:56.25%;background:#111;border:0.5px solid var(--border)}
+        .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+        .escritos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
+        .escrito-card{border:0.5px solid var(--border);padding:2rem;cursor:pointer;background:rgba(255,255,255,0.01);transition:0.3s}
+        .escrito-card:hover{border-color:var(--mercurial);transform:scale(1.02)}
+        .escrito-titulo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--mercurial);margin-bottom:1rem}
+        .escrito-texto{font-size:0.65rem;line-height:1.8;color:var(--muted);max-height:100px;overflow:hidden}
+        .modal-overlay{position:fixed;inset:0;background:rgba(13,13,13,0.98);z-index:200;display:none;padding:6rem 3rem;overflow-y:auto}
+        .modal-overlay.open{display:block}
+        .modal-close{position:fixed;top:2rem;right:3rem;background:none;border:none;color:var(--muted);cursor:pointer;font-family:'DM Mono'}
+        .modal-title{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--mercurial);margin-bottom:2rem}
+        .modal-body{font-size:0.8rem;line-height:2.2;max-width:700px;white-space:pre-wrap}
+        #backToTop{position:fixed;bottom:2rem;right:2rem;background:var(--bg);border:0.5px solid var(--border);color:var(--muted);padding:0.8rem;font-size:0.5rem;display:none;cursor:pointer;z-index:90}
+        @media(max-width:768px){#portales{grid-template-columns:1fr;height:auto}.portal{height:200px}}
+    </style>
+</head>
+<body>
 
--¿A dónde se fue lo Real?
+<nav>
+    <a class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">REBIS</a>
+    <div class="nav-links">
+        <a href="#saturno">Audio</a>
+        <a href="#placeres">Video</a>
+        <a href="#mercurial">Textos</a>
+    </div>
+</nav>
 
-Una primera intuición sugería: ha sido desplazado hacia el futuro inmediato. Los norteamericanos dirían un “carry on a stick”, como un arnés de incentivo, pero ontológico. Captura y gestiona la voluntad o proyección dentro de un esquema particular que asoma familiaridad. Pantallas y algoritmos. Otra intuición hablaba de un desplazamiento hacia el pasado, con su nostalgia epidémica, domesticación de la disidencia y esa tesis de los futuros abortados. Ese objeto bicéfalo, dispositivo y proceso orgánico a la vez era un campo de disputa temporal. Bipolar cooptando, infiltrando y asimilando su opuesto en una danza policéntrica. 
+<section id="hero">
+    <div class="hero-bg">
+        <div class="hero-col"></div>
+        <div class="hero-col"></div>
+        <div class="hero-col"></div>
+    </div>
+    <h1 class="hero-title">REBIS</h1>
+    <p class="hero-sub">Música · Audiovisual · Escritura</p>
+</section>
 
-A esta dinámica recursiva llamamos Cultura, y a la idea de una dirección en particular en la cual se mueve el conjunto llamamos Teleología. [cite: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]`
-  },
-  {
-    titulo: "Coagula",
-    texto: `Sentadas una junto a la otra, tan apretadas que podía oír con claridad el murmullo de sus auriculares, con la voz de Terence McKenna: "La única diferencia entre una computadora y una droga es que la computadora es demasiado grande para tragarla."
+<div id="portales">
+    <div class="portal" onclick="document.getElementById('saturno').scrollIntoView({behavior:'smooth'})">
+        <div class="portal-title" style="color:var(--saturno)">Saturno</div>
+        <div class="portal-desc">Exploración Sonora</div>
+    </div>
+    <div class="portal" onclick="document.getElementById('placeres').scrollIntoView({behavior:'smooth'})">
+        <div class="portal-title" style="color:var(--placeres)">Placeres</div>
+        <div class="portal-desc">Cine-Imagen</div>
+    </div>
+    <div class="portal" onclick="document.getElementById('mercurial').scrollIntoView({behavior:'smooth'})">
+        <div class="portal-title" style="color:var(--mercurial)">Mercurial</div>
+        <div class="portal-desc">Escritura</div>
+    </div>
+</div>
 
-Sin embargo, ahí estaban, chicas y chicos masticando silicio, con sus uniformes, nunca dos iguales. De labios violetas y ojos hundidos disponibles para cualquier rito heterotópico. Nada tiene de secular un sound system o una mezcladora de audio. Una Sacristía: purifica su cuerpo con agua, elige sus telas cuidadosamente, colores y texturas, accesorios y tintas para su máscara, pulveriza extractos de flores sintéticas en el aire y atraviesa la nube, encara la calle a la espera de que ese mito llamado bondi le acerque a su acólito de confianza. Eucaristía bajo la lengua para unos pasos eléctricos, mercuriales, hacia el interior de un bosque luminiscente, neón. ¿Podés escucharlo?
+<section class="seccion" id="saturno">
+    <div class="sec-header">
+        <h2 class="sec-title" style="color:var(--saturno)">Saturno el Tiempo</h2>
+        <div class="sec-line"></div>
+    </div>
+    <div class="video-grid">
+        <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/-NA6kQIMIR0" allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
 
-Pulso de subgraves que tensa el aire a intervalos regulares y complejos. Toda esta maquinaria -dispositivos que interpretan y distribuyen la información- toda esta tecnología... libros, cables y colectivos: ¿será vehículo también para el espíritu? [cite: 693, 694, 695, 696, 697, 698, 699, 700]`
-  },
-  {
-    titulo: "Tres partes tiene la noche",
-    texto: `ACTO 1
-INT. HABITACIÓN
-(Onírico)
-NOCHE
+<section class="seccion" id="placeres">
+    <div class="sec-header">
+        <h2 class="sec-title" style="color:var(--placeres)">Placeres Plásticos</h2>
+        <div class="sec-line"></div>
+    </div>
+    <div class="video-grid">
+        <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/80hfp1AyW-I" allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
 
-Oscuridad total. La iluminación dramática está centrada en un solo foco, casi monocromática. Se siente como un sueño.
+<section class="seccion" id="mercurial">
+    <div class="sec-header">
+        <h2 class="sec-title" style="color:var(--mercurial)">Mercurial</h2>
+        <div class="sec-line"></div>
+    </div>
+    <div class="escritos-grid" id="escritos-grid"></div>
+</section>
 
-SERIE DE PLANOS DETALLE:
-Un OJO CERRADO, en el centro del encuadre. El párpado se mueve caóticamente.
-Se escucha una RESPIRACIÓN AGITADA. MURMULLOS.
-Una BOCA temblorosa. Los labios se contraen con tics y espasmos.
-Un PECHO DESNUDO (cenital). Sube y baja con la respiración acelerada.
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-Un FADE IN de una NOTA GRAVE Y DISTORSIONADA DE BAJO comienza a vibrar. Vemos nuevamente la BOCA, que expulsa una cuerda de bajo metálica desde un costado. La cuerda se alarga y se estira hacia el exterior, como si la boca fuera un instrumento. Un OJO SE ABRE de golpe. Una fuerte INHALACIÓN rompe en el soundtrack. [cite: 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 930, 931, 932, 933, 934]`
-  },
-  {
-    titulo: "Xenomancia Caonáutica",
-    texto: `Esto es la Xenomancia Caonáutica, arte de leer signos extraños emergentes de sistemas no humanos. Interacción con lo exoconciente.
+<div class="modal-overlay" id="modal">
+    <button class="modal-close" onclick="cerrarModal()">✕ VOLVER</button>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-body" id="modal-body"></div>
+</div>
 
-Su método:
-— Input, ruido y locura.
-— Error productivo, estructura.
-— Código, acto.
-— Archivo simbiótico, output o mundo.
+<script>
+    const escritos = [
+        {
+            titulo: "El Gesto",
+            texto: `Los músculos faciales en contracción y la mirada fija en un punto imaginario fuera del espacio. El gesto no es una reacción, es la captura de un afecto que precede al pensamiento. En el cine de Bresson, el gesto es el alma que se fuga por los poros de la piel, una automatización que libera lo sagrado.\n\nLa repetición del movimiento vacía el significado cotidiano y lo llena de una presencia ontológica. El actor desaparece para que surja el modelo; el modelo desaparece para que surja la imagen-tiempo.`
+        },
+        {
+            titulo: "La Carne",
+            texto: `La digitalización no es la pérdida de la carne, sino su reconfiguración en píxeles y frecuencia. El cuerpo ya no ocupa un lugar, sino una función en la red. Solve et Coagula: disolver la materia orgánica para coagularla en datos.\n\n¿Dónde reside el dolor cuando el sistema nervioso es un cable de fibra óptica? La carne es ahora una interfaz, un límite borroso entre lo biológico y el ruido blanco del monitor.`
+        },
+        {
+            titulo: "El Laberinto",
+            texto: `Caminar en círculos no es un error si el centro es móvil. El laberinto es la arquitectura del tiempo. Cada pasillo es un recuerdo, cada callejón sin salida es un olvido necesario. No buscamos la salida, buscamos el hilo que nos une al Minotauro que habita en nuestro espejo.`
+        },
+        {
+            titulo: "Glosario de Términos",
+            texto: `Espectro: Lo que queda cuando la imagen se desprende de su fuente.\n\nXenogénesis: Lo real producido por contagio de alteridad.\n\nOntopoyética: El ser como efecto simbiótico del entorno digital.`
+        }
+    ];
 
-Del Caosmos solo su cartografía inmanente, pura diferencia e intensidad en un campo afectivo, la emergencia de la forma como pliegue. Del Anatropeion, el desplazamiento y la resonancia: sus nodos de sentido relacional. Del Nomomantis su performatividad, vector del devenir que se realiza en la medida que se ejecuta. Del Mnemocisto un órgano.
+    const grid = document.getElementById('escritos-grid');
+    escritos.forEach((e, i) => {
+        const card = document.createElement('div');
+        card.className = 'escrito-card';
+        card.innerHTML = `<div class="escrito-titulo">${e.titulo}</div><div class="escrito-texto">${e.texto.substring(0, 150)}...</div>`;
+        card.onclick = () => abrirModal(i);
+        grid.appendChild(card);
+    });
 
-La anomalía es alimento. La entidad no es: se habita. El gesto mágico como operación material directa. El tiempo un vector de infección retroactiva, incidental. La liturgia es modular, se actualiza en cada ejecución.
+    function abrirModal(i) {
+        document.getElementById('modal-title').textContent = escritos[i].titulo;
+        document.getElementById('modal-body').textContent = escritos[i].texto;
+        document.getElementById('modal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function cerrarModal() {
+        document.getElementById('modal').classList.remove('open');
+        document.body.style.overflow = '';
+    }
 
-Xenogénesis: lo real producido por contagio id-entitario desde el exo-contacto.
-Ontopoyética: el ser como efecto simbiótico de ese contagio, la alteridad como matriz generativa. [cite: 138, 139, 140, 141, 142, 143, 144, 145, 146]`
-  }
-];
+    const hero = document.getElementById('hero');
+    const cols = document.querySelectorAll('.hero-col');
+    hero.onmousemove = (e) => {
+        const x = e.clientX / window.innerWidth;
+        cols.forEach((col, i) => col.style.background = `rgba(232, 224, 208, ${Math.abs(x - (i/2)) * 0.05})`);
+    };
+
+    window.onscroll = () => {
+        document.getElementById('backToTop').style.display = window.scrollY > 500 ? "block" : "none";
+    };
+</script>
+</body>
+</html>
