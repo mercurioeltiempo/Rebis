@@ -99,33 +99,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
   .modal-close{right:1.5rem}
   #contacto{padding:4rem 1.5rem}
 }
-</style>/* Animación de expansión armónica para los títulos de los escritos */
-.escrito-card {
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                border-color 0.4s ease;
-}
-
-.escrito-titulo {
-    transition: letter-spacing 0.5s cubic-bezier(0.19, 1, 0.22, 1), 
-                color 0.5s ease;
-    letter-spacing: 0.1em; /* Espaciado original */
-}
-
-/* Estado cuando pasas el cursor (Hover) */
-.escrito-card:hover .escrito-titulo {
-    letter-spacing: 0.25em; /* Se expande */
-    color: #fff; /* Brilla ligeramente */
-    text-shadow: 0 0 8px rgba(74, 156, 200, 0.4); /* Aura sutil del color Mercurial */
-}
-
-/* Efecto opcional para el cuerpo del texto */
-.escrito-texto {
-    transition: opacity 0.5s ease;
-}
-
-.escrito-card:hover .escrito-texto {
-    opacity: 0.8;
-}
+</style>
 </head>
 <body>
 
