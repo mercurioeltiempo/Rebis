@@ -5,7 +5,80 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>REBIS</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet">
-<style>
+<style><style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#0d0d0d;--text:#e8e0d0;--muted:#7a7468;--border:#1e1e1e;--saturno:#7ab84e;--placeres:#b83232;--mercurial:#4a9cc8}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-weight:300;overflow-x:hidden}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(13,13,13,0.95),transparent)}
+    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.15em;color:var(--text);text-decoration:none;cursor:pointer}
+    .nav-links{display:flex;gap:2.5rem}
+    .nav-links a{font-size:0.65rem;letter-spacing:0.15em;color:var(--muted);text-decoration:none;text-transform:uppercase}
+
+    #hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;pointer-events:none}
+    .hero-col{border-right:0.5px solid var(--border);transition: background 0.3s ease;}
+    .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,20vw,18rem);letter-spacing:0.08em;line-height:0.9;text-align:center;z-index:2}
+    
+    /* Animación para el título principal */
+    .hero-title { transition: letter-spacing 0.8s cubic-bezier(0.19, 1, 0.22, 1); }
+    .hero-title:hover { letter-spacing: 0.15em; }
+
+    .seccion{padding:8rem 3rem;border-top:0.5px solid var(--border)}
+    .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:0.1em}
+
+    /* --- TARJETAS DE ESCRITOS CON ANIMACIÓN --- */
+    .escritos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
+    
+    .escrito-card{
+        border:0.5px solid var(--border);
+        padding:2rem;
+        cursor:pointer;
+        background:rgba(255,255,255,0.01);
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Animación del Título (Expansión) */
+    .escrito-titulo{
+        font-family:'Bebas Neue',sans-serif;
+        font-size:1.4rem;
+        color:var(--mercurial);
+        margin-bottom:1rem;
+        transition: letter-spacing 0.6s cubic-bezier(0.19, 1, 0.22, 1), color 0.6s ease;
+        letter-spacing: 0.05em;
+    }
+
+    /* El efecto cuando pasas el mouse */
+    .escrito-card:hover {
+        border-color: var(--mercurial);
+        background: rgba(74, 156, 200, 0.03);
+    }
+
+    .escrito-card:hover .escrito-titulo {
+        letter-spacing: 0.25em; /* Aquí sucede la expansión armónica */
+        color: #fff;
+    }
+
+    .escrito-texto{
+        font-size:0.65rem;
+        line-height:1.8;
+        color:var(--muted);
+        transition: opacity 0.5s ease;
+    }
+    
+    .escrito-card:hover .escrito-texto {
+        opacity: 0.8;
+    }
+
+    /* Modales y otros estilos */
+    .modal-overlay{position:fixed;inset:0;background:rgba(13,13,13,0.98);z-index:200;display:none;padding:6rem 3rem;overflow-y:auto}
+    .modal-overlay.open{display:block}
+    .modal-title{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--mercurial);margin-bottom:2rem}
+    .modal-body{font-size:0.8rem;line-height:2.2;max-width:700px;white-space:pre-wrap}
+</style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0d0d0d;--text:#e8e0d0;--muted:#7a7468;--border:#1e1e1e;--saturno:#7ab84e;--placeres:#b83232;--mercurial:#4a9cc8}
 html{scroll-behavior:smooth}
