@@ -1,333 +1,54 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>REBIS — Música, Audiovisual y Escritura</title>
-    <meta name="description" content="Portfolio integral de REBIS: Exploración sonora, visual y literaria a través de Saturno el Tiempo, Placeres Plásticos y Mercurial.">
-    <meta property="og:title" content="REBIS — Obra Integral">
-    <meta property="og:description" content="Música, Cine y Pensamiento.">
-    <meta property="og:type" content="website">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet">
-    
-    <style>
-        /* VARIABLES Y RESET */
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{--bg:#0d0d0d;--text:#e8e0d0;--muted:#7a7468;--border:#1e1e1e;--saturno:#7ab84e;--placeres:#b83232;--mercurial:#4a9cc8}
-        html{scroll-behavior:smooth}
-        body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-weight:300;overflow-x:hidden}
+const escritos = [
+  {
+    titulo: "El Gesto",
+    texto: `Los músculos faciales en contracción y la mirada fija en un punto imaginario fuera del espacio. El objeto, por llamarlo de alguna manera, se ofrecía complejo, y él no podía más que orbitarlo. Y aunque el olor a otros nombres; parálisis por análisis; empujaba su cabeza hacia atrás y apretaba sus hombros, el antojo de que resultase respuesta a esta crisis de sentido era más que suficiente.
 
-        /* NAVEGACIÓN */
-        nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(13,13,13,0.95),transparent)}
-        .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.15em;color:var(--text);text-decoration:none;cursor:pointer;transition: opacity 0.3s}
-        .nav-logo:hover{opacity: 0.7}
-        .nav-links{display:flex;gap:2.5rem}
-        .nav-links a{font-size:0.65rem;letter-spacing:0.15em;color:var(--muted);text-decoration:none;transition:color 0.3s;text-transform:uppercase}
-        .nav-links a.saturno:hover{color:var(--saturno)}
-        .nav-links a.placeres:hover{color:var(--placeres)}
-        .nav-links a.mercurial:hover{color:var(--mercurial)}
-        .nav-links a:hover{color:var(--text)}
+-¿A dónde se fue lo Real?
 
-        /* HERO - Con interacción de movimiento mejorada */
-        #hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden; cursor: default;}
-        .hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;pointer-events:none}
-        .hero-col{border-right:0.5px solid var(--border);opacity:0;animation:fadeIn 2s forwards; transition: background 0.5s ease;}
-        .hero-col:last-child{border-right:none}
-        .hero-col:nth-child(1){animation-delay:0.2s}
-        .hero-col:nth-child(2){animation-delay:0.4s}
-        .hero-col:nth-child(3){animation-delay:0.6s}
-        @keyframes fadeIn{to{opacity:1}}
-        
-        .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,20vw,18rem);letter-spacing:0.08em;line-height:0.9;text-align:center;position:relative;z-index:2;opacity:0;animation:riseUp 1.2s 0.3s forwards; pointer-events: none;}
-        @keyframes riseUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-        
-        .hero-sub{font-size:0.6rem;letter-spacing:0.3em;color:var(--muted);margin-top:1.5rem;position:relative;z-index:2;opacity:0;animation:riseUp 1.2s 0.7s forwards}
-        .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'DM Mono',monospace;animation:pulse 2s infinite; padding: 10px;}
-        @keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+Una primera intuición sugería: ha sido desplazado hacia el futuro inmediato. Los norteamericanos dirían un “carry on a stick”, como un arnés de incentivo, pero ontológico. Captura y gestiona la voluntad o proyección dentro de un esquema particular que asoma familiaridad. Pantallas y algoritmos. Otra intuición hablaba de un desplazamiento hacia el pasado, con su nostalgia epidémica, domesticación de la disidencia y esa tesis de los futuros abortados. Ese objeto bicéfalo, dispositivo y proceso orgánico a la vez era un campo de disputa temporal. Bipolar cooptando, infiltrando y asimilando su opuesto en una danza policéntrica. 
 
-        /* PORTALES - Mejor feedback visual */
-        #portales{display:grid;grid-template-columns:1fr 1fr 1fr;height:60vh;border-top:0.5px solid var(--border)}
-        .portal{position:relative;overflow:hidden;cursor:pointer;border-right:0.5px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;padding:2.5rem;transition:all 0.4s ease}
-        .portal:last-child{border-right:none}
-        .portal::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.4s}
-        .portal.saturno::before{background:radial-gradient(ellipse at bottom left,rgba(122,184,78,0.12),transparent 70%)}
-        .portal.placeres::before{background:radial-gradient(ellipse at bottom left,rgba(184,50,50,0.12),transparent 70%)}
-        .portal.mercurial::before{background:radial-gradient(ellipse at bottom left,rgba(74,156,200,0.12),transparent 70%)}
-        .portal:hover{background: rgba(255,255,255,0.02); transform: translateY(-2px);}
-        .portal:hover::before{opacity:1}
-        .portal-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,3rem);letter-spacing:0.1em;line-height:1;margin-bottom:0.8rem;transition:color 0.3s}
-        .portal-desc{font-size:0.6rem;letter-spacing:0.08em;color:var(--muted);line-height:1.8}
-        .portal-arrow{position:absolute;top:2rem;right:2rem;font-size:0.7rem;color:var(--border);transition:all 0.3s}
-        .portal:hover .portal-arrow{color:var(--text);transform:translate(4px,-4px)}
-        .portal.saturno:hover .portal-title{color:var(--saturno)}
-        .portal.placeres:hover .portal-title{color:var(--placeres)}
-        .portal.mercurial:hover .portal-title{color:var(--mercurial)}
+A esta dinámica recursiva llamamos Cultura, y a la idea de una dirección en particular en la cual se mueve el conjunto llamamos Teleología. [cite: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]`
+  },
+  {
+    titulo: "Coagula",
+    texto: `Sentadas una junto a la otra, tan apretadas que podía oír con claridad el murmullo de sus auriculares, con la voz de Terence McKenna: "La única diferencia entre una computadora y una droga es que la computadora es demasiado grande para tragarla."
 
-        /* SECCIONES COMUNES */
-        .seccion{padding:8rem 3rem;border-top:0.5px solid var(--border)}
-        .sec-header{display:flex;align-items:baseline;gap:2rem;margin-bottom:4rem}
-        .sec-num{font-size:0.55rem;letter-spacing:0.2em;color:var(--muted)}
-        .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:0.1em}
-        .sec-title.saturno{color:var(--saturno)}
-        .sec-title.placeres{color:var(--placeres)}
-        .sec-title.mercurial{color:var(--mercurial)}
-        .sec-line{flex:1;height:0.5px;background:var(--border)}
+Sin embargo, ahí estaban, chicas y chicos masticando silicio, con sus uniformes, nunca dos iguales. De labios violetas y ojos hundidos disponibles para cualquier rito heterotópico. Nada tiene de secular un sound system o una mezcladora de audio. Una Sacristía: purifica su cuerpo con agua, elige sus telas cuidadosamente, colores y texturas, accesorios y tintas para su máscara, pulveriza extractos de flores sintéticas en el aire y atraviesa la nube, encara la calle a la espera de que ese mito llamado bondi le acerque a su acólito de confianza. Eucaristía bajo la lengua para unos pasos eléctricos, mercuriales, hacia el interior de un bosque luminiscente, neón. ¿Podés escucharlo?
 
-        /* GRILLA DE VIDEOS */
-        .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
-        .video-wrap{position:relative;padding-bottom:56.25%;background:#111;border:0.5px solid var(--border); overflow: hidden;}
-        .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
-        .video-caption{font-size:0.6rem;letter-spacing:0.08em;color:var(--muted);margin-top:1rem;line-height:1.6}
+Pulso de subgraves que tensa el aire a intervalos regulares y complejos. Toda esta maquinaria -dispositivos que interpretan y distribuyen la información- toda esta tecnología... libros, cables y colectivos: ¿será vehículo también para el espíritu? [cite: 693, 694, 695, 696, 697, 698, 699, 700]`
+  },
+  {
+    titulo: "Tres partes tiene la noche",
+    texto: `ACTO 1
+INT. HABITACIÓN
+(Onírico)
+NOCHE
 
-        /* ESCRITOS */
-        .escritos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
-        .escrito-card{border:0.5px solid var(--border);padding:2.5rem;cursor:pointer;transition:all 0.3s ease;position:relative;background: rgba(255,255,255,0.01)}
-        .escrito-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4rem;background:linear-gradient(transparent,var(--bg))}
-        .escrito-card:hover{border-color:var(--mercurial); transform: scale(1.02); background: rgba(74,156,200,0.03);}
-        .escrito-titulo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--mercurial);margin-bottom:1.2rem}
-        .escrito-texto{font-size:0.65rem;line-height:2;color:var(--muted);max-height:120px;overflow:hidden}
-        .escrito-leer{display:inline-block;margin-top:1.5rem;font-size:0.6rem;letter-spacing:0.15em;color:var(--mercurial);position:relative;z-index:2;background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace; text-transform: uppercase;}
+Oscuridad total. La iluminación dramática está centrada en un solo foco, casi monocromática. Se siente como un sueño.
 
-        /* MODAL (Lectura) */
-        .modal-overlay{position:fixed;inset:0;background:rgba(13,13,13,0.98);z-index:200;display:none;overflow-y:auto;padding:6rem 3rem; backdrop-filter: blur(5px);}
-        .modal-overlay.open{display:block}
-        .modal-close{position:fixed;top:2rem;right:3rem;font-size:0.65rem;letter-spacing:0.15em;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'DM Mono',monospace; z-index: 201;}
-        .modal-close:hover{color:var(--text)}
-        .modal-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);letter-spacing:0.1em;color:var(--mercurial);margin-bottom:3rem;max-width:900px}
-        .modal-body{font-size:0.75rem;line-height:2.4;color:var(--text);max-width:750px;white-space:pre-wrap; margin-bottom: 4rem;}
+SERIE DE PLANOS DETALLE:
+Un OJO CERRADO, en el centro del encuadre. El párpado se mueve caóticamente.
+Se escucha una RESPIRACIÓN AGITADA. MURMULLOS.
+Una BOCA temblorosa. Los labios se contraen con tics y espasmos.
+Un PECHO DESNUDO (cenital). Sube y baja con la respiración acelerada.
 
-        /* APOYO Y CONTACTO */
-        .apoyo-section{padding:6rem 3rem;border-top:0.5px solid var(--border)}
-        .apoyo-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.1em;color:var(--muted);margin-bottom:3rem}
-        .apoyo-mp-wrap{display:flex;align-items:center;gap:4rem;flex-wrap:wrap}
-        .apoyo-qr-box{border:0.5px solid var(--border);padding:1.5rem;background:#0a0a0a;display:inline-flex;flex-direction:column;align-items:center;gap:1rem}
-        .apoyo-qr-label{font-size:0.55rem;letter-spacing:0.15em;color:var(--muted);text-align:center;text-transform:uppercase}
-        .apoyo-mp-info{display:flex;flex-direction:column;gap:1rem}
-        .apoyo-mp-plat{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.12em;color:var(--text)}
-        .apoyo-mp-alias{font-size:0.85rem;letter-spacing:0.08em;color:var(--muted)}
-        .apoyo-mp-alias strong{color:var(--mercurial);letter-spacing:0.12em}
+Un FADE IN de una NOTA GRAVE Y DISTORSIONADA DE BAJO comienza a vibrar. Vemos nuevamente la BOCA, que expulsa una cuerda de bajo metálica desde un costado. La cuerda se alarga y se estira hacia el exterior, como si la boca fuera un instrumento. Un OJO SE ABRE de golpe. Una fuerte INHALACIÓN rompe en el soundtrack. [cite: 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 930, 931, 932, 933, 934]`
+  },
+  {
+    titulo: "Xenomancia Caonáutica",
+    texto: `Esto es la Xenomancia Caonáutica, arte de leer signos extraños emergentes de sistemas no humanos. Interacción con lo exoconciente.
 
-        #contacto{padding:10rem 3rem;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:4rem}
-        .contacto-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,8rem);letter-spacing:0.05em;color:var(--text);line-height:0.85}
-        .contacto-links{display:flex;flex-direction:column;gap:1.5rem;text-align:right}
-        .contacto-links a{font-size:0.7rem;letter-spacing:0.15em;color:var(--muted);text-decoration:none;transition:all 0.3s}
-        .contacto-links a:hover{color:var(--text); padding-right: 5px;}
+Su método:
+— Input, ruido y locura.
+— Error productivo, estructura.
+— Código, acto.
+— Archivo simbiótico, output o mundo.
 
-        footer{padding:3rem;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-        footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
+Del Caosmos solo su cartografía inmanente, pura diferencia e intensidad en un campo afectivo, la emergencia de la forma como pliegue. Del Anatropeion, el desplazamiento y la resonancia: sus nodos de sentido relacional. Del Nomomantis su performatividad, vector del devenir que se realiza en la medida que se ejecuta. Del Mnemocisto un órgano.
 
-        /* BOTÓN VOLVER ARRIBA */
-        #backToTop {position: fixed; bottom: 2rem; right: 2rem; background: var(--bg); border: 0.5px solid var(--border); color: var(--muted); padding: 0.8rem; font-size: 0.6rem; cursor: pointer; display: none; z-index: 90; font-family: 'DM Mono';}
-        #backToTop:hover {color: var(--text); border-color: var(--text);}
+La anomalía es alimento. La entidad no es: se habita. El gesto mágico como operación material directa. El tiempo un vector de infección retroactiva, incidental. La liturgia es modular, se actualiza en cada ejecución.
 
-        /* MOBILE OPTIMIZATION */
-        @media(max-width:768px){
-            nav{padding:1rem 1.5rem}
-            .nav-links{display: none;} /* Simplificado para móvil */
-            #portales{grid-template-columns:1fr;height:auto}
-            .portal{height:250px;border-right:none;border-bottom:0.5px solid var(--border)}
-            .seccion,.apoyo-section{padding:5rem 1.5rem}
-            #contacto{padding:6rem 1.5rem; flex-direction: column; align-items: flex-start;}
-            .contacto-links{text-align: left;}
-        }
-    </style>
-</head>
-<body>
-
-<nav>
-    <a class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">REBIS</a>
-    <div class="nav-links">
-        <a href="#saturno" class="saturno">Saturno el Tiempo</a>
-        <a href="#placeres" class="placeres">Placeres Plásticos</a>
-        <a href="#mercurial" class="mercurial">Mercurial</a>
-        <a href="#contacto">Contacto</a>
-    </div>
-</nav>
-
-<section id="hero">
-    <div class="hero-bg">
-        <div class="hero-col"></div>
-        <div class="hero-col"></div>
-        <div class="hero-col"></div>
-    </div>
-    <h1 class="hero-title">REBIS</h1>
-    <p class="hero-sub">Música · Audiovisual · Escritura</p>
-    <button class="hero-scroll" onclick="document.getElementById('portales').scrollIntoView({behavior:'smooth'})" aria-label="Bajar a contenido">↓ &nbsp; Entrar</button>
-</section>
-
-<div id="portales">
-    <div class="portal saturno" onclick="document.getElementById('saturno').scrollIntoView({behavior:'smooth'})">
-        <span class="portal-arrow">↗</span>
-        <div class="portal-title">Saturno<br>el Tiempo</div>
-        <div class="portal-desc">Música / Exploración Sonora</div>
-    </div>
-    <div class="portal placeres" onclick="document.getElementById('placeres').scrollIntoView({behavior:'smooth'})">
-        <span class="portal-arrow">↗</span>
-        <div class="portal-title">Placeres<br>Plásticos</div>
-        <div class="portal-desc">Audiovisual / Cine-Imagen</div>
-    </div>
-    <div class="portal mercurial" onclick="document.getElementById('mercurial').scrollIntoView({behavior:'smooth'})">
-        <span class="portal-arrow">↗</span>
-        <div class="portal-title">Mercurial</div>
-        <div class="portal-desc">Escritura / Filosofía</div>
-    </div>
-</div>
-
-<section class="seccion" id="saturno">
-    <div class="sec-header">
-        <span class="sec-num">01</span>
-        <h2 class="sec-title saturno">Saturno el Tiempo</h2>
-        <div class="sec-line"></div>
-    </div>
-    <div class="video-grid">
-        <div class="video-item">
-            <div class="video-wrap">
-                <iframe src="https://www.youtube.com/embed/-NA6kQIMIR0" allowfullscreen title="Música Rebis"></iframe>
-            </div>
-            <p class="video-caption">de Animales a Dioses — Mercurio el Tiempo. Una reflexión sonora sobre la cronología y el ser.</p>
-        </div>
-    </div>
-    <p style="font-size:0.6rem;color:var(--muted);margin-top:3rem;letter-spacing:0.1em;">
-        → <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank" style="color:var(--saturno);text-decoration:none;">Explorar canal completo en YouTube ↗</a>
-    </p>
-</section>
-
-<section class="seccion" id="placeres">
-    <div class="sec-header">
-        <span class="sec-num">02</span>
-        <h2 class="sec-title placeres">Placeres Plásticos</h2>
-        <div class="sec-line"></div>
-    </div>
-    <div class="video-grid">
-        <div class="video-item">
-            <div class="video-wrap">
-                <iframe src="https://www.youtube.com/embed/80hfp1AyW-I" allowfullscreen title="Audiovisual Rebis"></iframe>
-            </div>
-            <p class="video-caption">Placeres Plásticos — La imagen como textura y la narrativa del síntoma visual.</p>
-        </div>
-    </div>
-    <p style="font-size:0.6rem;color:var(--muted);margin-top:3rem;letter-spacing:0.1em;">
-        → <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank" style="color:var(--placeres);text-decoration:none;">Ver obra audiovisual completa ↗</a>
-    </p>
-</section>
-
-<section class="seccion" id="mercurial">
-    <div class="sec-header">
-        <span class="sec-num">03</span>
-        <h2 class="sec-title mercurial">Mercurial</h2>
-        <div class="sec-line"></div>
-    </div>
-    <div class="escritos-grid" id="escritos-grid"></div>
-</section>
-
-<div class="apoyo-section">
-    <div class="apoyo-title">Apoyar la obra</div>
-    <div class="apoyo-mp-wrap">
-        <div class="apoyo-qr-box">
-            <canvas id="qr-mp"></canvas>
-            <div class="apoyo-qr-label">Escanear con Mercado Pago</div>
-        </div>
-        <div class="apoyo-mp-info">
-            <div class="apoyo-mp-plat">Aportes Voluntarios</div>
-            <div class="apoyo-mp-alias">Alias: <strong>mercurial23</strong></div>
-            <p style="font-size:0.6rem; color: var(--muted); max-width: 300px;">La autogestión permite la continuidad de esta exploración sin intermediarios.</p>
-        </div>
-    </div>
-</div>
-
-<section id="contacto">
-    <div class="contacto-title">ENTRAR<br>EN<br>CONTACTO</div>
-    <div class="contacto-links">
-        <a href="mailto:jerecoosa@gmail.com">jerecoosa@gmail.com ↗</a>
-        <a href="https://www.instagram.com/http_mercurial/" target="_blank">Instagram — @http_mercurial ↗</a>
-        <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank">YouTube — Saturno el Tiempo ↗</a>
-        <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank">YouTube — Placeres Plásticos ↗</a>
-        <a href="https://cafeyhumodetabaco.blogspot.com/" target="_blank">Blog — Café y Humo de Tabaco ↗</a>
-    </div>
-</section>
-
-<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ ARRIBA</button>
-
-<footer>
-    <span>REBIS — 2026</span>
-    <span>Música · Audiovisual · Escritura</span>
-</footer>
-
-<div class="modal-overlay" id="modal">
-    <button class="modal-close" onclick="cerrarModal()">✕ &nbsp; VOLVER</button>
-    <div class="modal-title" id="modal-title"></div>
-    <div class="modal-body" id="modal-body"></div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-<script>
-    /* LÓGICA DE ESCRITOS (AQUÍ PUEDES AÑADIR MÁS FÁCILMENTE) */
-    const escritos = [
-        {
-            titulo: "El Gesto",
-            texto: `Los músculos faciales en contracción y la mirada fija en un punto imaginario fuera del espacio... (texto completo omitido aquí por brevedad, usa tu original)`
-        },
-        // ... (Añadir el resto de tus textos aquí igual que en tu original)
-    ];
-
-    // Cargar textos en la grilla
-    const grid = document.getElementById('escritos-grid');
-    escritos.forEach((e, i) => {
-        if(!e.texto) return;
-        const card = document.createElement('div');
-        card.className = 'escrito-card';
-        card.innerHTML = `
-            <div class="escrito-titulo">${e.titulo}</div>
-            <div class="escrito-texto">${e.texto.substring(0, 180)}...</div>
-            <button class="escrito-leer" onclick="abrirModal(${i})">→ Leer más</button>
-        `;
-        grid.appendChild(card);
-    });
-
-    // Funciones del Modal
-    function abrirModal(i) {
-        document.getElementById('modal-title').textContent = escritos[i].titulo;
-        document.getElementById('modal-body').textContent = escritos[i].texto;
-        document.getElementById('modal').classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
-    function cerrarModal() {
-        document.getElementById('modal').classList.remove('open');
-        document.body.style.overflow = '';
-    }
-
-    // Interacción del Hero (Columnas que reaccionan al mouse)
-    const hero = document.getElementById('hero');
-    const cols = document.querySelectorAll('.hero-col');
-    hero.addEventListener('mousemove', (e) => {
-        const xPercent = e.clientX / window.innerWidth;
-        cols.forEach((col, i) => {
-            const intensity = Math.abs(xPercent - (i/3)) * 0.15;
-            col.style.background = `rgba(232, 224, 208, ${0.05 - intensity})`;
-        });
-    });
-
-    // Botón Volver Arriba
-    const btnUp = document.getElementById('backToTop');
-    window.onscroll = function() {
-        if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
-            btnUp.style.display = "block";
-        } else {
-            btnUp.style.display = "none";
-        }
-    };
-
-    // Generar QR
-    QRCode.toCanvas(document.getElementById('qr-mp'), 'mercurial23', {
-        width: 160,
-        margin: 1,
-        color: { dark: '#e8e0d0', light: '#0a0a0a' }
-    });
-
-    // Cerrar modal con Escape
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(); });
-</script>
-</body>
-</html>
+Xenogénesis: lo real producido por contagio id-entitario desde el exo-contacto.
+Ontopoyética: el ser como efecto simbiótico de ese contagio, la alteridad como matriz generativa. [cite: 138, 139, 140, 141, 142, 143, 144, 145, 146]`
+  }
+];
