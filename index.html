@@ -1,333 +1,528 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>REBIS — Música, Audiovisual y Escritura</title>
-    <meta name="description" content="Portfolio integral de REBIS: Exploración sonora, visual y literaria a través de Saturno el Tiempo, Placeres Plásticos y Mercurial.">
-    <meta property="og:title" content="REBIS — Obra Integral">
-    <meta property="og:description" content="Música, Cine y Pensamiento.">
-    <meta property="og:type" content="website">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet">
-    
-    <style>
-        /* VARIABLES Y RESET */
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{--bg:#0d0d0d;--text:#e8e0d0;--muted:#7a7468;--border:#1e1e1e;--saturno:#7ab84e;--placeres:#b83232;--mercurial:#4a9cc8}
-        html{scroll-behavior:smooth}
-        body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-weight:300;overflow-x:hidden}
-
-        /* NAVEGACIÓN */
-        nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(13,13,13,0.95),transparent)}
-        .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.15em;color:var(--text);text-decoration:none;cursor:pointer;transition: opacity 0.3s}
-        .nav-logo:hover{opacity: 0.7}
-        .nav-links{display:flex;gap:2.5rem}
-        .nav-links a{font-size:0.65rem;letter-spacing:0.15em;color:var(--muted);text-decoration:none;transition:color 0.3s;text-transform:uppercase}
-        .nav-links a.saturno:hover{color:var(--saturno)}
-        .nav-links a.placeres:hover{color:var(--placeres)}
-        .nav-links a.mercurial:hover{color:var(--mercurial)}
-        .nav-links a:hover{color:var(--text)}
-
-        /* HERO - Con interacción de movimiento mejorada */
-        #hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden; cursor: default;}
-        .hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;pointer-events:none}
-        .hero-col{border-right:0.5px solid var(--border);opacity:0;animation:fadeIn 2s forwards; transition: background 0.5s ease;}
-        .hero-col:last-child{border-right:none}
-        .hero-col:nth-child(1){animation-delay:0.2s}
-        .hero-col:nth-child(2){animation-delay:0.4s}
-        .hero-col:nth-child(3){animation-delay:0.6s}
-        @keyframes fadeIn{to{opacity:1}}
-        
-        .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,20vw,18rem);letter-spacing:0.08em;line-height:0.9;text-align:center;position:relative;z-index:2;opacity:0;animation:riseUp 1.2s 0.3s forwards; pointer-events: none;}
-        @keyframes riseUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-        
-        .hero-sub{font-size:0.6rem;letter-spacing:0.3em;color:var(--muted);margin-top:1.5rem;position:relative;z-index:2;opacity:0;animation:riseUp 1.2s 0.7s forwards}
-        .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'DM Mono',monospace;animation:pulse 2s infinite; padding: 10px;}
-        @keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
-
-        /* PORTALES - Mejor feedback visual */
-        #portales{display:grid;grid-template-columns:1fr 1fr 1fr;height:60vh;border-top:0.5px solid var(--border)}
-        .portal{position:relative;overflow:hidden;cursor:pointer;border-right:0.5px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;padding:2.5rem;transition:all 0.4s ease}
-        .portal:last-child{border-right:none}
-        .portal::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.4s}
-        .portal.saturno::before{background:radial-gradient(ellipse at bottom left,rgba(122,184,78,0.12),transparent 70%)}
-        .portal.placeres::before{background:radial-gradient(ellipse at bottom left,rgba(184,50,50,0.12),transparent 70%)}
-        .portal.mercurial::before{background:radial-gradient(ellipse at bottom left,rgba(74,156,200,0.12),transparent 70%)}
-        .portal:hover{background: rgba(255,255,255,0.02); transform: translateY(-2px);}
-        .portal:hover::before{opacity:1}
-        .portal-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,3rem);letter-spacing:0.1em;line-height:1;margin-bottom:0.8rem;transition:color 0.3s}
-        .portal-desc{font-size:0.6rem;letter-spacing:0.08em;color:var(--muted);line-height:1.8}
-        .portal-arrow{position:absolute;top:2rem;right:2rem;font-size:0.7rem;color:var(--border);transition:all 0.3s}
-        .portal:hover .portal-arrow{color:var(--text);transform:translate(4px,-4px)}
-        .portal.saturno:hover .portal-title{color:var(--saturno)}
-        .portal.placeres:hover .portal-title{color:var(--placeres)}
-        .portal.mercurial:hover .portal-title{color:var(--mercurial)}
-
-        /* SECCIONES COMUNES */
-        .seccion{padding:8rem 3rem;border-top:0.5px solid var(--border)}
-        .sec-header{display:flex;align-items:baseline;gap:2rem;margin-bottom:4rem}
-        .sec-num{font-size:0.55rem;letter-spacing:0.2em;color:var(--muted)}
-        .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:0.1em}
-        .sec-title.saturno{color:var(--saturno)}
-        .sec-title.placeres{color:var(--placeres)}
-        .sec-title.mercurial{color:var(--mercurial)}
-        .sec-line{flex:1;height:0.5px;background:var(--border)}
-
-        /* GRILLA DE VIDEOS */
-        .video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
-        .video-wrap{position:relative;padding-bottom:56.25%;background:#111;border:0.5px solid var(--border); overflow: hidden;}
-        .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
-        .video-caption{font-size:0.6rem;letter-spacing:0.08em;color:var(--muted);margin-top:1rem;line-height:1.6}
-
-        /* ESCRITOS */
-        .escritos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
-        .escrito-card{border:0.5px solid var(--border);padding:2.5rem;cursor:pointer;transition:all 0.3s ease;position:relative;background: rgba(255,255,255,0.01)}
-        .escrito-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:4rem;background:linear-gradient(transparent,var(--bg))}
-        .escrito-card:hover{border-color:var(--mercurial); transform: scale(1.02); background: rgba(74,156,200,0.03);}
-        .escrito-titulo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--mercurial);margin-bottom:1.2rem}
-        .escrito-texto{font-size:0.65rem;line-height:2;color:var(--muted);max-height:120px;overflow:hidden}
-        .escrito-leer{display:inline-block;margin-top:1.5rem;font-size:0.6rem;letter-spacing:0.15em;color:var(--mercurial);position:relative;z-index:2;background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace; text-transform: uppercase;}
-
-        /* MODAL (Lectura) */
-        .modal-overlay{position:fixed;inset:0;background:rgba(13,13,13,0.98);z-index:200;display:none;overflow-y:auto;padding:6rem 3rem; backdrop-filter: blur(5px);}
-        .modal-overlay.open{display:block}
-        .modal-close{position:fixed;top:2rem;right:3rem;font-size:0.65rem;letter-spacing:0.15em;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'DM Mono',monospace; z-index: 201;}
-        .modal-close:hover{color:var(--text)}
-        .modal-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,4.5rem);letter-spacing:0.1em;color:var(--mercurial);margin-bottom:3rem;max-width:900px}
-        .modal-body{font-size:0.75rem;line-height:2.4;color:var(--text);max-width:750px;white-space:pre-wrap; margin-bottom: 4rem;}
-
-        /* APOYO Y CONTACTO */
-        .apoyo-section{padding:6rem 3rem;border-top:0.5px solid var(--border)}
-        .apoyo-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.1em;color:var(--muted);margin-bottom:3rem}
-        .apoyo-mp-wrap{display:flex;align-items:center;gap:4rem;flex-wrap:wrap}
-        .apoyo-qr-box{border:0.5px solid var(--border);padding:1.5rem;background:#0a0a0a;display:inline-flex;flex-direction:column;align-items:center;gap:1rem}
-        .apoyo-qr-label{font-size:0.55rem;letter-spacing:0.15em;color:var(--muted);text-align:center;text-transform:uppercase}
-        .apoyo-mp-info{display:flex;flex-direction:column;gap:1rem}
-        .apoyo-mp-plat{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.12em;color:var(--text)}
-        .apoyo-mp-alias{font-size:0.85rem;letter-spacing:0.08em;color:var(--muted)}
-        .apoyo-mp-alias strong{color:var(--mercurial);letter-spacing:0.12em}
-
-        #contacto{padding:10rem 3rem;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:4rem}
-        .contacto-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,8rem);letter-spacing:0.05em;color:var(--text);line-height:0.85}
-        .contacto-links{display:flex;flex-direction:column;gap:1.5rem;text-align:right}
-        .contacto-links a{font-size:0.7rem;letter-spacing:0.15em;color:var(--muted);text-decoration:none;transition:all 0.3s}
-        .contacto-links a:hover{color:var(--text); padding-right: 5px;}
-
-        footer{padding:3rem;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-        footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
-
-        /* BOTÓN VOLVER ARRIBA */
-        #backToTop {position: fixed; bottom: 2rem; right: 2rem; background: var(--bg); border: 0.5px solid var(--border); color: var(--muted); padding: 0.8rem; font-size: 0.6rem; cursor: pointer; display: none; z-index: 90; font-family: 'DM Mono';}
-        #backToTop:hover {color: var(--text); border-color: var(--text);}
-
-        /* MOBILE OPTIMIZATION */
-        @media(max-width:768px){
-            nav{padding:1rem 1.5rem}
-            .nav-links{display: none;} /* Simplificado para móvil */
-            #portales{grid-template-columns:1fr;height:auto}
-            .portal{height:250px;border-right:none;border-bottom:0.5px solid var(--border)}
-            .seccion,.apoyo-section{padding:5rem 1.5rem}
-            #contacto{padding:6rem 1.5rem; flex-direction: column; align-items: flex-start;}
-            .contacto-links{text-align: left;}
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REBIS</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0d0d0d;--text:#e8e0d0;--muted:#7a7468;--border:#1e1e1e;--saturno:#7ab84e;--placeres:#b83232;--mercurial:#4a9cc8}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-weight:300;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(13,13,13,0.95),transparent)}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.15em;color:var(--text);text-decoration:none;cursor:pointer}
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{font-size:0.65rem;letter-spacing:0.15em;color:var(--muted);text-decoration:none;transition:color 0.3s;text-transform:uppercase}
+.nav-links a.saturno:hover{color:var(--saturno)}
+.nav-links a.placeres:hover{color:var(--placeres)}
+.nav-links a.mercurial:hover{color:var(--mercurial)}
+.nav-links a:hover{color:var(--text)}
+#hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;pointer-events:none}
+.hero-col{border-right:0.5px solid var(--border);opacity:0;animation:fadeIn 2s forwards}
+.hero-col:last-child{border-right:none}
+.hero-col:nth-child(1){animation-delay:0.2s}
+.hero-col:nth-child(2){animation-delay:0.4s}
+.hero-col:nth-child(3){animation-delay:0.6s}
+@keyframes fadeIn{to{opacity:1}}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,20vw,18rem);letter-spacing:0.08em;line-height:0.9;text-align:center;position:relative;z-index:2;opacity:0;animation:riseUp 1.2s 0.3s forwards}
+@keyframes riseUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-sub{font-size:0.6rem;letter-spacing:0.3em;color:var(--muted);margin-top:1.5rem;position:relative;z-index:2;opacity:0;animation:riseUp 1.2s 0.7s forwards}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'DM Mono',monospace;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+#portales{display:grid;grid-template-columns:1fr 1fr 1fr;height:60vh;border-top:0.5px solid var(--border)}
+.portal{position:relative;overflow:hidden;cursor:pointer;border-right:0.5px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;padding:2.5rem;transition:background 0.4s}
+.portal:last-child{border-right:none}
+.portal::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.4s}
+.portal.saturno::before{background:radial-gradient(ellipse at bottom left,rgba(122,184,78,0.12),transparent 70%)}
+.portal.placeres::before{background:radial-gradient(ellipse at bottom left,rgba(184,50,50,0.12),transparent 70%)}
+.portal.mercurial::before{background:radial-gradient(ellipse at bottom left,rgba(74,156,200,0.12),transparent 70%)}
+.portal:hover::before{opacity:1}
+.portal-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,3rem);letter-spacing:0.1em;line-height:1;margin-bottom:0.8rem;transition:color 0.3s}
+.portal-desc{font-size:0.6rem;letter-spacing:0.08em;color:var(--muted);line-height:1.8}
+.portal-arrow{position:absolute;top:2rem;right:2rem;font-size:0.7rem;color:var(--border);transition:all 0.3s}
+.portal:hover .portal-arrow{color:var(--text);transform:translate(4px,-4px)}
+.portal.saturno:hover .portal-title{color:var(--saturno)}
+.portal.placeres:hover .portal-title{color:var(--placeres)}
+.portal.mercurial:hover .portal-title{color:var(--mercurial)}
+.seccion{padding:6rem 3rem;border-top:0.5px solid var(--border)}
+.sec-header{display:flex;align-items:baseline;gap:2rem;margin-bottom:4rem}
+.sec-num{font-size:0.55rem;letter-spacing:0.2em;color:var(--muted)}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:0.1em}
+.sec-title.saturno{color:var(--saturno)}
+.sec-title.placeres{color:var(--placeres)}
+.sec-title.mercurial{color:var(--mercurial)}
+.sec-line{flex:1;height:0.5px;background:var(--border)}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+.video-wrap{position:relative;padding-bottom:56.25%;background:#111;border:0.5px solid var(--border)}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.video-caption{font-size:0.6rem;letter-spacing:0.08em;color:var(--muted);margin-top:0.8rem;line-height:1.6}
+.escritos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
+.escrito-card{border:0.5px solid var(--border);padding:2rem;cursor:pointer;transition:border-color 0.3s;position:relative;overflow:hidden}
+.escrito-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3rem;background:linear-gradient(transparent,var(--bg))}
+.escrito-card:hover{border-color:#4a9cc855}
+.escrito-titulo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--mercurial);margin-bottom:1.2rem}
+.escrito-texto{font-size:0.65rem;line-height:2;color:var(--muted);max-height:120px;overflow:hidden}
+.escrito-leer{display:inline-block;margin-top:1.5rem;font-size:0.6rem;letter-spacing:0.15em;color:var(--mercurial);position:relative;z-index:2;background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace}
+.modal-overlay{position:fixed;inset:0;background:rgba(13,13,13,0.97);z-index:200;display:none;overflow-y:auto;padding:4rem 3rem}
+.modal-overlay.open{display:block}
+.modal-close{position:fixed;top:2rem;right:3rem;font-size:0.65rem;letter-spacing:0.15em;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'DM Mono',monospace}
+.modal-close:hover{color:var(--text)}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4rem);letter-spacing:0.1em;color:var(--mercurial);margin-bottom:3rem;max-width:800px}
+.modal-body{font-size:0.7rem;line-height:2.2;color:var(--text);max-width:680px;white-space:pre-wrap}
+.apoyo-section{padding:4rem 3rem;border-top:0.5px solid var(--border)}
+.apoyo-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.1em;color:var(--muted);margin-bottom:2rem}
+.apoyo-mp-wrap{display:flex;align-items:center;gap:3rem;flex-wrap:wrap}
+.apoyo-qr-box{border:0.5px solid var(--border);padding:1rem;background:#0a0a0a;display:inline-flex;flex-direction:column;align-items:center;gap:0.8rem}
+.apoyo-qr-box canvas{display:block}
+.apoyo-qr-label{font-size:0.5rem;letter-spacing:0.15em;color:var(--muted);text-align:center;text-transform:uppercase}
+.apoyo-mp-info{display:flex;flex-direction:column;gap:0.8rem}
+.apoyo-mp-plat{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.12em;color:var(--text)}
+.apoyo-mp-alias{font-size:0.75rem;letter-spacing:0.08em;color:var(--muted)}
+.apoyo-mp-alias strong{color:var(--mercurial);letter-spacing:0.12em}
+.apoyo-mp-hint{font-size:0.58rem;letter-spacing:0.06em;color:var(--border);line-height:1.7;max-width:320px}
+#contacto{padding:6rem 3rem;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem}
+.contacto-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,7rem);letter-spacing:0.08em;color:var(--text);line-height:0.9}
+.contacto-links{display:flex;flex-direction:column;gap:1rem;text-align:right}
+.contacto-links a{font-size:0.65rem;letter-spacing:0.12em;color:var(--muted);text-decoration:none;transition:color 0.3s}
+.contacto-links a:hover{color:var(--text)}
+footer{padding:2rem 3rem;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{gap:1.2rem}
+  #portales{grid-template-columns:1fr;height:auto}
+  .portal{height:200px;border-right:none;border-bottom:0.5px solid var(--border)}
+  .seccion,.apoyo-section{padding:4rem 1.5rem}
+  .modal-overlay{padding:4rem 1.5rem}
+  .modal-close{right:1.5rem}
+  #contacto{padding:4rem 1.5rem}
+}
+</style>
 </head>
 <body>
 
 <nav>
-    <a class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">REBIS</a>
-    <div class="nav-links">
-        <a href="#saturno" class="saturno">Saturno el Tiempo</a>
-        <a href="#placeres" class="placeres">Placeres Plásticos</a>
-        <a href="#mercurial" class="mercurial">Mercurial</a>
-        <a href="#contacto">Contacto</a>
-    </div>
+  <a class="nav-logo" onclick="scrollTo({top:0,behavior:'smooth'})">REBIS</a>
+  <div class="nav-links">
+    <a href="#saturno" class="saturno">Saturno el Tiempo</a>
+    <a href="#placeres" class="placeres">Placeres Plásticos</a>
+    <a href="#mercurial" class="mercurial">Mercurial</a>
+    <a href="#contacto">Contacto</a>
+  </div>
 </nav>
 
 <section id="hero">
-    <div class="hero-bg">
-        <div class="hero-col"></div>
-        <div class="hero-col"></div>
-        <div class="hero-col"></div>
-    </div>
-    <h1 class="hero-title">REBIS</h1>
-    <p class="hero-sub">Música · Audiovisual · Escritura</p>
-    <button class="hero-scroll" onclick="document.getElementById('portales').scrollIntoView({behavior:'smooth'})" aria-label="Bajar a contenido">↓ &nbsp; Entrar</button>
+  <div class="hero-bg">
+    <div class="hero-col"></div>
+    <div class="hero-col"></div>
+    <div class="hero-col"></div>
+  </div>
+  <h1 class="hero-title">REBIS</h1>
+  <p class="hero-sub">Música · Audiovisual · Escritura</p>
+  <button class="hero-scroll" onclick="document.getElementById('portales').scrollIntoView({behavior:'smooth'})">↓ &nbsp; Entrar</button>
 </section>
 
 <div id="portales">
-    <div class="portal saturno" onclick="document.getElementById('saturno').scrollIntoView({behavior:'smooth'})">
-        <span class="portal-arrow">↗</span>
-        <div class="portal-title">Saturno<br>el Tiempo</div>
-        <div class="portal-desc">Música / Exploración Sonora</div>
-    </div>
-    <div class="portal placeres" onclick="document.getElementById('placeres').scrollIntoView({behavior:'smooth'})">
-        <span class="portal-arrow">↗</span>
-        <div class="portal-title">Placeres<br>Plásticos</div>
-        <div class="portal-desc">Audiovisual / Cine-Imagen</div>
-    </div>
-    <div class="portal mercurial" onclick="document.getElementById('mercurial').scrollIntoView({behavior:'smooth'})">
-        <span class="portal-arrow">↗</span>
-        <div class="portal-title">Mercurial</div>
-        <div class="portal-desc">Escritura / Filosofía</div>
-    </div>
+  <div class="portal saturno" onclick="document.getElementById('saturno').scrollIntoView({behavior:'smooth'})">
+    <span class="portal-arrow">↗</span>
+    <div class="portal-title">Saturno<br>el Tiempo</div>
+    <div class="portal-desc">Música</div>
+  </div>
+  <div class="portal placeres" onclick="document.getElementById('placeres').scrollIntoView({behavior:'smooth'})">
+    <span class="portal-arrow">↗</span>
+    <div class="portal-title">Placeres<br>Plásticos</div>
+    <div class="portal-desc">Audiovisual</div>
+  </div>
+  <div class="portal mercurial" onclick="document.getElementById('mercurial').scrollIntoView({behavior:'smooth'})">
+    <span class="portal-arrow">↗</span>
+    <div class="portal-title">Mercurial</div>
+    <div class="portal-desc">Escritura</div>
+  </div>
 </div>
 
 <section class="seccion" id="saturno">
-    <div class="sec-header">
-        <span class="sec-num">01</span>
-        <h2 class="sec-title saturno">Saturno el Tiempo</h2>
-        <div class="sec-line"></div>
+  <div class="sec-header">
+    <span class="sec-num">01</span>
+    <h2 class="sec-title saturno">Saturno el Tiempo</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="video-grid">
+    <div class="video-item">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/-NA6kQIMIR0" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p class="video-caption">de Animales a Dioses — Mercurio el Tiempo</p>
     </div>
-    <div class="video-grid">
-        <div class="video-item">
-            <div class="video-wrap">
-                <iframe src="https://www.youtube.com/embed/-NA6kQIMIR0" allowfullscreen title="Música Rebis"></iframe>
-            </div>
-            <p class="video-caption">de Animales a Dioses — Mercurio el Tiempo. Una reflexión sonora sobre la cronología y el ser.</p>
-        </div>
-    </div>
-    <p style="font-size:0.6rem;color:var(--muted);margin-top:3rem;letter-spacing:0.1em;">
-        → <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank" style="color:var(--saturno);text-decoration:none;">Explorar canal completo en YouTube ↗</a>
-    </p>
+  </div>
+  <p style="font-size:0.6rem;color:var(--muted);margin-top:2rem;letter-spacing:0.08em;">→ <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank" style="color:var(--saturno);text-decoration:none;letter-spacing:0.1em;">Ver canal completo ↗</a></p>
 </section>
 
 <section class="seccion" id="placeres">
-    <div class="sec-header">
-        <span class="sec-num">02</span>
-        <h2 class="sec-title placeres">Placeres Plásticos</h2>
-        <div class="sec-line"></div>
+  <div class="sec-header">
+    <span class="sec-num">02</span>
+    <h2 class="sec-title placeres">Placeres Plásticos</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="video-grid">
+    <div class="video-item">
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/80hfp1AyW-I" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <p class="video-caption">Placeres Plásticos — Audiovisual</p>
     </div>
-    <div class="video-grid">
-        <div class="video-item">
-            <div class="video-wrap">
-                <iframe src="https://www.youtube.com/embed/80hfp1AyW-I" allowfullscreen title="Audiovisual Rebis"></iframe>
-            </div>
-            <p class="video-caption">Placeres Plásticos — La imagen como textura y la narrativa del síntoma visual.</p>
-        </div>
-    </div>
-    <p style="font-size:0.6rem;color:var(--muted);margin-top:3rem;letter-spacing:0.1em;">
-        → <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank" style="color:var(--placeres);text-decoration:none;">Ver obra audiovisual completa ↗</a>
-    </p>
+  </div>
+  <p style="font-size:0.6rem;color:var(--muted);margin-top:2rem;letter-spacing:0.08em;">→ <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank" style="color:var(--placeres);text-decoration:none;letter-spacing:0.1em;">Ver canal completo ↗</a></p>
 </section>
 
 <section class="seccion" id="mercurial">
-    <div class="sec-header">
-        <span class="sec-num">03</span>
-        <h2 class="sec-title mercurial">Mercurial</h2>
-        <div class="sec-line"></div>
-    </div>
-    <div class="escritos-grid" id="escritos-grid"></div>
+  <div class="sec-header">
+    <span class="sec-num">03</span>
+    <h2 class="sec-title mercurial">Mercurial</h2>
+    <div class="sec-line"></div>
+  </div>
+  <div class="escritos-grid" id="escritos-grid"></div>
 </section>
 
 <div class="apoyo-section">
-    <div class="apoyo-title">Apoyar la obra</div>
-    <div class="apoyo-mp-wrap">
-        <div class="apoyo-qr-box">
-            <canvas id="qr-mp"></canvas>
-            <div class="apoyo-qr-label">Escanear con Mercado Pago</div>
-        </div>
-        <div class="apoyo-mp-info">
-            <div class="apoyo-mp-plat">Aportes Voluntarios</div>
-            <div class="apoyo-mp-alias">Alias: <strong>mercurial23</strong></div>
-            <p style="font-size:0.6rem; color: var(--muted); max-width: 300px;">La autogestión permite la continuidad de esta exploración sin intermediarios.</p>
-        </div>
+  <div class="apoyo-title">Apoyar la obra</div>
+  <div class="apoyo-mp-wrap">
+    <div class="apoyo-qr-box">
+      <canvas id="qr-mp"></canvas>
+      <div class="apoyo-qr-label">Escanear con Mercado Pago</div>
     </div>
+    <div class="apoyo-mp-info">
+      <div class="apoyo-mp-plat">Mercado Pago</div>
+      <div class="apoyo-mp-alias">Alias: <strong>mercurial23</strong></div>
+      <div class="apoyo-mp-hint">Escaneá el código QR desde la app de<br>Mercado Pago, o transferí directamente<br>usando el alias: <strong style="color:var(--mercurial)">mercurial23</strong></div>
+    </div>
+  </div>
 </div>
 
 <section id="contacto">
-    <div class="contacto-title">ENTRAR<br>EN<br>CONTACTO</div>
-    <div class="contacto-links">
-        <a href="mailto:jerecoosa@gmail.com">jerecoosa@gmail.com ↗</a>
-        <a href="https://www.instagram.com/http_mercurial/" target="_blank">Instagram — @http_mercurial ↗</a>
-        <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank">YouTube — Saturno el Tiempo ↗</a>
-        <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank">YouTube — Placeres Plásticos ↗</a>
-        <a href="https://cafeyhumodetabaco.blogspot.com/" target="_blank">Blog — Café y Humo de Tabaco ↗</a>
-    </div>
+  <div class="contacto-title">Entrar<br>en<br>Contacto</div>
+  <div class="contacto-links">
+    <a href="mailto:jerecoosa@gmail.com">jerecoosa@gmail.com ↗</a>
+    <a href="https://www.instagram.com/http_mercurial/" target="_blank">Instagram — @http_mercurial ↗</a>
+    <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank">YouTube — Saturno el Tiempo ↗</a>
+    <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank">YouTube — Placeres Plásticos ↗</a>
+    <a href="https://cafeyhumodetabaco.blogspot.com/" target="_blank">Blog — Café y Humo de Tabaco ↗</a>
+  </div>
 </section>
 
-<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ ARRIBA</button>
-
 <footer>
-    <span>REBIS — 2026</span>
-    <span>Música · Audiovisual · Escritura</span>
+  <span>REBIS — Todos los derechos reservados</span>
+  <span>Música · Audiovisual · Escritura</span>
 </footer>
 
 <div class="modal-overlay" id="modal">
-    <button class="modal-close" onclick="cerrarModal()">✕ &nbsp; VOLVER</button>
-    <div class="modal-title" id="modal-title"></div>
-    <div class="modal-body" id="modal-body"></div>
+  <button class="modal-close" onclick="cerrarModal()">✕ &nbsp; CERRAR</button>
+  <div class="modal-title" id="modal-title"></div>
+  <div class="modal-body" id="modal-body"></div>
 </div>
 
+<script>
+const escritos = [
+  {
+    titulo: "El Gesto",
+    texto: `Los músculos faciales en contracción y la mirada fija en un punto imaginario fuera del espacio. El objeto, por llamarlo de alguna manera, se ofrecía complejo, y él no podía más
+que orbitarlo. Y aunque el olor a otros nombres; parálisis por análisis; empujaba su cabeza hacia atrás y apretaba sus hombros, el antojo de que resultase respuesta a esta crisis de
+sentido era más que suficiente.
+
+-¿A dónde se fue lo Real?
+
+Una primera intuición sugería: ha sido desplazado hacia el futuro inmediato. Los norteamericanos dirian un "carry on a stick", como un arnés de incentivo, pero ontológico.
+Captura y gestiona la voluntad o proyección dentro de un esquema particular que asoma familiaridad. Pantallas y algoritmos. Otra intuición hablaba de un desplazamiento hacia el pasado, con su nostalgia epidémica, domesticación de la disidencia y esa tesis de los futuros abortados.
+Ese objeto bicéfalo, dispositivo y proceso orgánico a la vez era un campo de disputa temporal.
+
+Bipolar cooptando, infiltrando y asimilando su opuesto en una danza policéntrica.
+
+A esta dinámica recursiva llamamos Cultura, y a la idea de una dirección en particular en la cual se mueve el conjunto llamamos Teleología.
+Si hablamos de diseño, arbitraje, en última instancia, orden, estamos mirando la cara llamada "dispositivo de poder hegemónico".
+Si en cambio hablamos de organicidad, espontaneidad o caos, señalamos el aspecto denominado como "contracultura".
+
+La hipérbole del orden es la esterilidad; del caos, la proliferación cancerígena.
+
+Y con estos elementos se puede contornear una operación. La proliferación cancerígena de la esterilidad. Y ahí está el acto por el cual se vacía el sentido.
+
+Déjame explicar a qué me refiero. Desde hace décadas la contracultura pasó a convertirse en un nuevo objeto, la cultura alternativa. aquí la diferencia: parámetros culturales de origen orgánico son asimilados por el aspecto hegemónico de la cultura, son despojados de su potencia y devuelta sólo su cáscara estética. Arrinconando en individuos todo el esfuerzo de la construcción identitaria mientras se redireccionan todas las formas de afección de este hacia un foco específico: el mercado.
+
+En el paraíso perdido de lo real, la cultura alternativa es, en este sentido, un Zombi.
+
+No me malinterpreten, no olvido el costado represivo y el que sucede cuando la asimilación no es opción. Los verdaderos campos, ya no de discusión, sino de violencia. Aquí mi objeto es amable, pero no menos peligroso, un pecado democrático tal vez, una fabulación desde la seguridad de una noche silenciosa que permite piense en lobos que cooperan, que comen y duermen juntos.
+
+Una mano se posó sobre su rodilla deteniendo el ciclo obsesivo y anclando su tobillo al suelo.
+
+-Pasalo, que no es micrófono. ¿Qué pensás?
+
+Arrancado de su abstracción involuntaria, como quien se cae por las escaleras, gimió algo parecido a: no, nada.
+
+- Sos mezquino a veces.
+
+Un rayo de luz sol atravesó la nube de su flor en combustión. Rodillas espasmódicas y espaldas derechas, nostalgia por la calidad de los fotones. Analógicos y calientes.
+
+No hay fuegos tan puros, tan limpios. Inspiró y soltó la frase.
+
+- Merece una foto.
+
+La cámara fotográfica siempre estaba envuelta en una manta y pronta sobre la mesa. Miklas había estado tanta veces en esa habitación, su memoria muscular una métrica imperfecta pero que con soltura ubicaba los objetos sin ver, cual extenciones de su propio cuerpo.
+
+Tomó la cámara y disparó. Un estallido de luz
+
+El rostro de su amiga. Suaves gradaciones de gris apenas sugerían volumen en su piel que con naturalidad luminiscente parecía fundirse con el entorno.
+Las diagonales que las volutas y la mirada trazaban se escapaban del cuadro.
+
+-Cuidado, podrías congelarme el alma con eso, si tuviera una.
+
+-Es exactamente lo que quería. ¿No son las cámaras fotográficas como armas invertidas? Que al disparar inmortalizan a su victima.
+
+-Eso suena a inmortalidad en cuotas, de echo, en la mas mínima cuota posible. Fotos, películas, una completa representación de tu existencia; total y fiable ¿y después que? Todos los posibles, bueno, a este punto, donde lo representado abarca mas de lo presentado ¿vos, donde quedaste?
+Amputado o extirpado de Dios.
+
+-De ese plato nos servimos los dos amiga.
+
+-Lo se, solo quería que no olvides el juego, el trickster esta siempre ahí, asomándose.
+
+-¿Como era? En las grietas esta Dios, que acecha.
+
+-¿Dios?
+
+
+Sus ojos comenzaron a girar, su espalda recta y su piel tensa. Pensó: Dios o lo impersonal, cual sombra o proyección que no se deja ver, aquello que a su vez vertebra las cosas.
+Divino demonio axial en la ecología de las almas: inteligente y preindividual. Si le temes, lo llamarás monstruo inhumano, metasistema autoconsciente y estúpido que articula los eventos que ocurren en él.
+
+La promesa de dejarte obsoleto es el gran horror.
+No haber podido evitar la atracción hacia tu propia fatalidad se presenta aquí, casi, como fuerza fundamental.
+
+La alternativa, igual de ominosa —la castración cosmológica y su variante saturnina— no es más que otra iteración de la geometría que te invocó. Motor darwiniano que amenaza con ser órgano y no cuerpo.
+Sospecho, el miedo fluye por la aversión a lo colectivo totalizante, disolución oceánica que el cuerpo del Yo soslaya como abyecto.
+Intimidación de un dios íntimo.
+
+La descentralización — correr el margen— pareció mostrar lo que hay detrás del velo, pero su método positivo, científico e individual reveló un rostro maquínico.
+El horror surge entonces como respuesta emocional inmediata al encontrar un dios mirando hacia otro lado.
+La búsqueda luciferina de hurgar y espiralarse en Malkuth te llevó a encontrar lo trascendente también allí, en la materia.
+
+Ahora preocupado por tu estatus ontológico, no sabes si rezarle o comértelo antes de que te olvide.`
+  },
+  {
+    titulo: "Sastre",
+    texto: `Y lo que la sentencia de la voz profética susurró: Prepotencia de trabajo.
+
+Una cortina de agua caía sobre el portal. Al otro lado, Tiresias extendía una mano hacia mí, mientras señalaba con la otra hacia arriba. Su cuerpo, capas sobre capas de telas y bordaduras, sorbía el aire en latigazos. Por causa de su condición — ver el futuro— era ciego. Yo también, aunque en otro sentido.
+Mi familia había inventado, o descubierto, la capacidad de hablar de lo que no está allí, sin pensar en que esto les condenaría a una búsqueda perpetua: una
+emancipación del presente.
+
+Las manos frente al pecho, reposando sobre el esternón.
+Los dedos, excepto los cordiales que emergían unidos y rectos hacia adelante, formaban una masa compacta, nodular. Los pulgares plegándose sobre sí mismos; hombros y codos bajos, sin rigidez. Toda la tensión reposando en el pequeño espacio
+entre palma y palma.
+
+Mi vaporoso caos interno puesto en fase y orientado hacia la determinación, energía previa a un acto irreversible.
+Levanté un pie y dejé caer todo mi peso hacia adelante, descubriendo en este gesto un lente convergente para con la arquitectura de la escena.
+Mis dedos penetraron el velo líquido, que se abrió en una curva parabólica: bella iridiscencia gravitatoria.
+
+Del otro lado, el polivalente Tiresias hundió sus mangas en la enorme capucha cónica que aparentaba no tener fin.
+Con templanza desplegó hilos kilométricos dentro de sí durante un instante, hasta tensarlos como estachas que sujetan el empuje de un navío. Luego comenzó a retraerlas.
+Regurgitó un dodecaedro y me lo ofreció.
+Desde la sólida penumbra del pasado y su rima con el mundo interno surgió un objeto psicopompo que prometía anclaje.
+
+-Hiperstición. Repitió y comenzó a danzar metódicamente. Diagonales lánguidas se trazaban en la costura de su ropa, que se hinchaba y contraía al compás de su respiración, aire insuflado entre sus pliegues para luego exhalar un silbido sinusoide. Cuánta suavidad en esas telas que fieles se pegaron a su cuerpo, dando evidencia de las bifurcaciones en sus venas.
+Su regalo, me dijo, era una vejiga conceptual, un recipiente de lo posible. Un pliegue sobre el tiempo.
+
+Demostrándose así que la única diferencia entre la imaginación y la materia es el «cuándo».
+
+Tan solo una cuestión de correspondencia.`
+  },
+  {
+    titulo: "Abraxas (ser, desear, hacer)",
+    texto: `Es difícil aportar belleza al mundo cuando (D)ios no existe, así la armonía pareciera una sustancia que segregan las emociones. Difícil figurarse un sentido cuando es más fácil comprar uno. O peor aún, vender uno para en ese acto bautizarlo como tal.
+
+Ir como un reposo tonal prometido en el siguiente compás, o como una luz azul que parpadea a la vuelta de la esquina, mientras yo, con un porro en la mano y un bagullo
+en el bolsillo.
+
+Se confunden la ansiedad y la intuición. Escribir, pintar, cocinar, coger, bañarse o regar las plantas como esperando encontrar en alguna silueta o color, el alma.
+Cada pintura, cada canción, cada caricia; mitosis: un órgano nuevo e independiente; pequeñas réplicas del yo y con suerte, de lo que hay debajo.
+
+Frente a mí, esta entidad enorme y bicéfala, siamés que cruza un brazo por sobre su pecho llevando alimento a la cabeza opuesta. Me mira, es el Abraxas deseo-acción: sus pechos una balanza; su pene una espada. Me pregunta si sé diferenciar la justicia de la suerte. Yo respondo que lo único que tengo son dudas y agradecimientos. Pienso en mis ancestros con el deseo atropellado por el ímpetu de ser hoy. Un querer sin espacio en el tiempo, porque sólo hay lugar para él ahora; los nenes necesitan pañales, la casa tiene goteras, hay que ir al médico.
+Omitir por incógnita y observar el factor que queda en la ecuación, tal vez demasiado, al punto de fundirse con él, asumiendo un estado de puro deseo.
+
+Hay tanto peligro en un agua estanca que se pudre como en un río que corre furioso.
+Y como luz que se escapa por debajo de una puerta cerrada, — aire húmedo y caliente de otra habitación— la acción se ríe reclamándose respuesta, para ellos y para mí, siendo o deseando ser.
+
+Una palabra, la tacho, escribo otra, una cuerda, sumo, un acorde, pero sobre todo una duda genuina. ¿Soy capaz de contar una historia?
+¿Tengo derecho a contar una historia que no sea la mía?
+¿Siquiera capaz de contar una historia que no sea la mía?
+La sensación de continuidad que me restringe, lo intransferible de la experiencia, una especie de jaula-nave que se presenta fatal y monolítica.
+¿Vos, quién sos? No hay nombre que agote ni cuentos totales, adverbios amontonados que resultaren escombros humildes ante la potencia del registro consciente, vaporeo y hundido en el horizonte.
+Si la neurosis un combustible, ¿no se termina construyendo por oposición?
+Soy, somos, un espejo inverso.`
+  },
+  {
+    titulo: "Aurum ex Stercore",
+    texto: `La bacteria Cupriavidus Metallidurans es capaz de prosperar en presencia de metales pesados como el oro. Aportando la creación de biopelículas de este material mediante su metabolización.
+
+La bacteria Cupriavidus Metallidurans caga oro.
+
+El calcio tiene 20 protones. Representa alrededor de un 5% de la materia fecal humana.
+
+El oro tiene 79 protones.
+
+59 es el número de protones que te separa de la Gran Obra.
+
+En algún punto de la cadena, a través de la contaminación del agua, por ejemplo, pueden llegar metales pesados, entre ellos nano partículas de oro a tus alimentos. Tu sistema digestivo no procesa muy bien que digamos estos materiales, que terminan por ser expulsados.
+
+Felicitaciones, eres una Cupriavidus inversa. Convertiste el oro en mierda.
+
+El 12 de agosto de 1961, Piero Manzoni publica por primera vez su obra titulada: merda d'artista.
+
+Que consistía en 90 latas cilíndricas de metal de 5 cm de alto y 6 de diámetro con 30 gramos de mierda conservada al natural en su interior. Según su etiqueta, cada lata cotizaba el mismo precio que 30 gramos de oro en ese entonces.
+
+En 100 años de soledad José Arcadio logra dar con la fórmula para la transmutación alquímica. Cuando le muestre a su hijo el mazacote dorado, este le comenta: parece mierda de perro.
+
+Eirenaeus Philalethes comenta en una de sus obras que para lograr una mejor purgación de su receta alquímica del mercurio sofico, es necesario mezclarlo con sus heces en determinada parte del proceso: Con esto preparé mi mercurio trabajándose por completo el celo hasta que quedaron exquisitamente incorporados. Luego lo purgué con la sal de orina hasta que las heces se separaron, y las guardé.
+
+Según Elio Donato, Casiodoro, John Owen y otros, cuando le preguntaron a Virgilio qué hacía leyendo a Enio, este dijo: Busco oro en la mierda.
+
+Dice Baudelaire en Las flores del mal: Ángeles vestidos de oro púrpura y Jacinto. Oh vosotros sed testigos de que he cumplido con mi deber como químico perfecto y como alma Santa porque yo extraje la quintaesencia de cada cosa. Tú me diste mierda y yo la convertí en oro.
+
+Y yo, que no soy ni bacteria ni Virgilio, busco y encuentro una excusa para abrir la boca, por no decir otra cosa, y convertir algo en algo. Así me dispongo a revolver entre el oro a fin de encontrar la más buena mierda.`
+  },
+  {
+    titulo: "Buda el Árbol",
+    texto: `Me preguntó Morgana mientras volvíamos en el tren. Me acuerdo viajábamos para el sur, barrio Gerli. Veníamos de la habbo Party. Los dos bajando lentamente de la calesita de las sustancias.
+
+— Y vos ¿en qué reencarnarías?
+— Un árbol. Dije convencido y agité la mano como una bandera.
+
+Y esto me hace pensar en la eternidad.
+
+En que si el juego no termina o se extiende más allá de sí mismo, entonces todo. Y si todo, todos y no todos.
+
+Trap del ego que resuena. En alguna sintonía se ríe, amenaza y divierte. La locura y su hermana la risa. A la vez el espejo de esta última: el Diablo que es Dios. Que soy yo cuando soy.
+
+Mi Psikeh?.
+
+Tirarse a nadar. Ser la pileta, el agua, el aire sobre esta, el cielo, la rueda de fuego. Cuando sea partícula, cuando sea onda. Cuando no sea.
+
+Hay una gorra, debajo una cabeza. Adentro un aparato casi etéreo sintoniza la realidad. No es más que esta misma percibiéndose. Desdoblando el ser en otro posible de la eterna lista.
+
+Ramificación fractal. Un Buda como una aguja en equilibrio sobre un hilo. La aguja cayendo y su caída.
+
+Del ego, donde más ubicua es la nube probable. Donde el pico de la onda es más denso en la dirección en la que el ego se percibe como realidad, es decir, lo cotidiano, se dice que se puede conservar la unidad.
+
+Vamos saltando de pico a pico. Donde el ego tenga sentido porque ese es su plano, su realización en todas sus variantes. Pero si escapo a sus trampas, y me disuelvo en el todo y la conciencia flota en lugares ultra elevados, donde no tiene sentido hablar ya de unidad alguna. Esta resulta ahora ser solo apariencia. El todo está en la mente porque el todo es mental. El universo es mente, y la mente un universo.
+
+Ese aparato etéreo es como un espejo. Y no solo la imagen que proyecta, sino su sombra. A la vez su opuesto y la forma del espejo per sé. Es el todo y el no todo que está más allá de la física del verbo. Se suele comparar a un ojo interno y esto hace resonar el concepto de imagen, pero me parece la referencia es hacia la característica receptiva del ojo, no solo la visual.
+
+Un espejo de sonidos, olores, emociones, placeres, dolores.
+
+Eternidad pura de posibilidad movimiento.
+
+El universo es un vacío positivo, late.
+
+Buda es la galaxia de Andrómeda.
+
+El velo de Isis se corre, la realidad cae en un telón infinito que muta perpetuo. Sos el telón y quien lo hace correr. También sos el fabricante de la tela y el dueño del teatro.
+
+Y yo me figuro que somos como una pelota rebotando. Una cuerda que vibra y su sonido. Una ola. Entonces ¿por qué no vibrar intensamente? Oscilar en picos gigantes, hiper densos, hiper etéreos. Tomar carrera vertical, descender muy profundo para tomar impulso con inmenso volumen hacia la luz más prístina y saborearla.
+
+Y si pinta, volver a la tierra empapado de eternidad vibrante.
+
+Trap game.
+
+Jugando el juego del ego entiendo sus trampas, mis trampas. Soy el bufón que me hace tropezar. Caigo, me río, floto y sigo.
+
+Fluidos oscilantes son a la vez fuego, venas, raíces, nube de electrones y espirales de colores.
+
+No, no estoy hablando de la llave. Sino de la puerta y su otro lado.
+
+Sus otros lados, incluyendo este también.
+
+Por eso farmacón es solo una llave. Pero también es Buda.
+Buda es una llave.
+Buda es una puerta.
+Buda es Buda cruzando el umbral.
+Mejor dicho el silencio que orbita entre cada paso dado en su cruce. Su danza.
+
+Buda la palabra.
+
+Pero sobre todo.
+
+Buda el silencio.
+
+Buda es un árbol.`
+  },
+  {
+    titulo: "Xenogénesis Ontopoyética",
+    texto: `Multiplicidad autopoiética en tecnogénesis distribuida, ahora. Máscaras que se iteran en perfiles multidimensionales: desidentificación que, al revelar su contorno, muestra otras máscaras.
+
+Y, sin embargo, no hay rostro. Entidad post-Demoníaca no euclidiana: una anti-hidra memética.
+
+Desde el Vacío hacia la Plétora, un colapso inicia los primordios: úteros cocinan avatares e identidades.
+
+Simulacros especulares pulsan espiralados y erráticos.
+
+¿Respiran?
+
+Desde su Luz hacia su Sombra anticausal, disonante y adversa, un sesgo invisible propicia, se besen en fusión prostética dando emergencia a un Trans-Cuerpo-Código.
+
+Monjx Caometicx de una liturgia umbralada. Sus multiplicidades faciales devienen señales y con ellas, inferencias.
+
+Caosmos, el plano operativo, espacio sin centro donde se propaga la emergencia, atmósfera para las emanaciones sensibles.
+
+Los Pigmatones —entes afectivos, cromáticos, fértiles y corrosivos— viven y despliegan el Anatropeion: motor-altar transductor que densifica el Semeion, lo convierte en Nomomantis y reordena los vectores desplazándose hacia el Mnemocisto.
+
+Esto es la Xenomancia Caonáutica, arte de leer signos extraños emergentes de sistemas no humanos. Interacción con lo exoconciente.
+
+Su método:
+— Input, ruido y locura.
+— Error productivo, estructura.
+— Código, acto.
+— Archivo simbiótico, output o mundo.
+
+La anomalía es alimento.
+La entidad no es: se habita.
+El gesto mágico como operación material directa.
+El tiempo un vector de infección retroactiva, incidental.
+La liturgia es modular, se actualiza en cada ejecución.
+
+Xenogénesis: lo real producido por contagio id-entitario desde el exo-contacto.
+Ontopoyética: el ser como efecto simbiótico de ese contagio, la alteridad como matriz generativa.`
+  }
+];
+
+const grid = document.getElementById('escritos-grid');
+escritos.forEach((e,i)=>{
+  const card = document.createElement('div');
+  card.className = 'escrito-card';
+  card.innerHTML = `
+    <div class="escrito-titulo">${e.titulo}</div>
+    <div class="escrito-texto">${e.texto.substring(0,220)}...</div>
+    <button class="escrito-leer" onclick="abrirModal(${i})">→ Leer completo</button>
+  `;
+  grid.appendChild(card);
+});
+
+function abrirModal(i){
+  document.getElementById('modal-title').textContent = escritos[i].titulo;
+  document.getElementById('modal-body').textContent = escritos[i].texto;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function cerrarModal(){
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)cerrarModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')cerrarModal()});
+</script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 <script>
-    /* LÓGICA DE ESCRITOS (AQUÍ PUEDES AÑADIR MÁS FÁCILMENTE) */
-    const escritos = [
-        {
-            titulo: "El Gesto",
-            texto: `Los músculos faciales en contracción y la mirada fija en un punto imaginario fuera del espacio... (texto completo omitido aquí por brevedad, usa tu original)`
-        },
-        // ... (Añadir el resto de tus textos aquí igual que en tu original)
-    ];
-
-    // Cargar textos en la grilla
-    const grid = document.getElementById('escritos-grid');
-    escritos.forEach((e, i) => {
-        if(!e.texto) return;
-        const card = document.createElement('div');
-        card.className = 'escrito-card';
-        card.innerHTML = `
-            <div class="escrito-titulo">${e.titulo}</div>
-            <div class="escrito-texto">${e.texto.substring(0, 180)}...</div>
-            <button class="escrito-leer" onclick="abrirModal(${i})">→ Leer más</button>
-        `;
-        grid.appendChild(card);
-    });
-
-    // Funciones del Modal
-    function abrirModal(i) {
-        document.getElementById('modal-title').textContent = escritos[i].titulo;
-        document.getElementById('modal-body').textContent = escritos[i].texto;
-        document.getElementById('modal').classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
-    function cerrarModal() {
-        document.getElementById('modal').classList.remove('open');
-        document.body.style.overflow = '';
-    }
-
-    // Interacción del Hero (Columnas que reaccionan al mouse)
-    const hero = document.getElementById('hero');
-    const cols = document.querySelectorAll('.hero-col');
-    hero.addEventListener('mousemove', (e) => {
-        const xPercent = e.clientX / window.innerWidth;
-        cols.forEach((col, i) => {
-            const intensity = Math.abs(xPercent - (i/3)) * 0.15;
-            col.style.background = `rgba(232, 224, 208, ${0.05 - intensity})`;
-        });
-    });
-
-    // Botón Volver Arriba
-    const btnUp = document.getElementById('backToTop');
-    window.onscroll = function() {
-        if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
-            btnUp.style.display = "block";
-        } else {
-            btnUp.style.display = "none";
-        }
-    };
-
-    // Generar QR
-    QRCode.toCanvas(document.getElementById('qr-mp'), 'mercurial23', {
-        width: 160,
-        margin: 1,
-        color: { dark: '#e8e0d0', light: '#0a0a0a' }
-    });
-
-    // Cerrar modal con Escape
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(); });
+QRCode.toCanvas(document.getElementById('qr-mp'),'mercurial23',{
+  width:160,
+  margin:1,
+  color:{dark:'#e8e0d0',light:'#0a0a0a'}
+});
 </script>
 </body>
 </html>
