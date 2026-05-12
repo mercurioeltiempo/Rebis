@@ -5,75 +5,100 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>REBIS</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet">
-<style><style>
-/* 1. RESET Y BASE */
+<style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#0d0d0d;--text:#e8e0d0;--muted:#7a7468;--border:#1e1e1e;--saturno:#7ab84e;--placeres:#b83232;--mercurial:#4a9cc8}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-weight:300;overflow-x:hidden}
-
-/* 2. NAVEGACIÓN Y HERO */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(13,13,13,0.95),transparent)}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.15em;color:var(--text);text-decoration:none;cursor:pointer}
 .nav-links{display:flex;gap:2.5rem}
-.nav-links a{font-size:0.65rem;letter-spacing:0.15em;color:var(--muted);text-decoration:none;text-transform:uppercase}
+.nav-links a{font-size:0.65rem;letter-spacing:0.15em;color:var(--muted);text-decoration:none;transition:color 0.3s;text-transform:uppercase}
+.nav-links a.saturno:hover{color:var(--saturno)}
+.nav-links a.placeres:hover{color:var(--placeres)}
+.nav-links a.mercurial:hover{color:var(--mercurial)}
+.nav-links a:hover{color:var(--text)}
 #hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;pointer-events:none}
-.hero-col{border-right:0.5px solid var(--border);transition: background 0.3s ease}
-.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,20vw,18rem);letter-spacing:0.08em;line-height:0.9;text-align:center;z-index:2;transition: letter-spacing 0.8s cubic-bezier(0.19, 1, 0.22, 1)}
-.hero-title:hover{letter-spacing:0.15em}
-.hero-sub{font-size:0.6rem;letter-spacing:0.3em;color:var(--muted);margin-top:1.5rem;z-index:2}
-
-/* 3. PORTALES Y SECCIONES */
+.hero-col{border-right:0.5px solid var(--border);opacity:0;animation:fadeIn 2s forwards}
+.hero-col:last-child{border-right:none}
+.hero-col:nth-child(1){animation-delay:0.2s}
+.hero-col:nth-child(2){animation-delay:0.4s}
+.hero-col:nth-child(3){animation-delay:0.6s}
+@keyframes fadeIn{to{opacity:1}}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,20vw,18rem);letter-spacing:0.08em;line-height:0.9;text-align:center;position:relative;z-index:2;opacity:0;animation:riseUp 1.2s 0.3s forwards}
+@keyframes riseUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero-sub{font-size:0.6rem;letter-spacing:0.3em;color:var(--muted);margin-top:1.5rem;position:relative;z-index:2;opacity:0;animation:riseUp 1.2s 0.7s forwards}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'DM Mono',monospace;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
 #portales{display:grid;grid-template-columns:1fr 1fr 1fr;height:60vh;border-top:0.5px solid var(--border)}
-.portal{position:relative;overflow:hidden;cursor:pointer;border-right:0.5px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;padding:2.5rem;transition:0.4s}
-.portal:hover{background:rgba(255,255,255,0.02)}
-.portal-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,3rem);letter-spacing:0.1em;line-height:1;margin-bottom:0.8rem}
-.seccion{padding:8rem 3rem;border-top:0.5px solid var(--border)}
+.portal{position:relative;overflow:hidden;cursor:pointer;border-right:0.5px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;padding:2.5rem;transition:background 0.4s}
+.portal:last-child{border-right:none}
+.portal::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.4s}
+.portal.saturno::before{background:radial-gradient(ellipse at bottom left,rgba(122,184,78,0.12),transparent 70%)}
+.portal.placeres::before{background:radial-gradient(ellipse at bottom left,rgba(184,50,50,0.12),transparent 70%)}
+.portal.mercurial::before{background:radial-gradient(ellipse at bottom left,rgba(74,156,200,0.12),transparent 70%)}
+.portal:hover::before{opacity:1}
+.portal-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,3rem);letter-spacing:0.1em;line-height:1;margin-bottom:0.8rem;transition:color 0.3s}
+.portal-desc{font-size:0.6rem;letter-spacing:0.08em;color:var(--muted);line-height:1.8}
+.portal-arrow{position:absolute;top:2rem;right:2rem;font-size:0.7rem;color:var(--border);transition:all 0.3s}
+.portal:hover .portal-arrow{color:var(--text);transform:translate(4px,-4px)}
+.portal.saturno:hover .portal-title{color:var(--saturno)}
+.portal.placeres:hover .portal-title{color:var(--placeres)}
+.portal.mercurial:hover .portal-title{color:var(--mercurial)}
+.seccion{padding:6rem 3rem;border-top:0.5px solid var(--border)}
 .sec-header{display:flex;align-items:baseline;gap:2rem;margin-bottom:4rem}
+.sec-num{font-size:0.55rem;letter-spacing:0.2em;color:var(--muted)}
 .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:0.1em}
+.sec-title.saturno{color:var(--saturno)}
+.sec-title.placeres{color:var(--placeres)}
+.sec-title.mercurial{color:var(--mercurial)}
 .sec-line{flex:1;height:0.5px;background:var(--border)}
-
-/* 4. TARJETAS DE ESCRITOS Y ANIMACIÓN */
-.escritos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
-.escrito-card{
-    border:0.5px solid var(--border);
-    padding:2rem;
-    cursor:pointer;
-    background:rgba(255,255,255,0.01);
-    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-}
-.escrito-card:hover{
-    border-color:var(--mercurial);
-    background:rgba(74, 156, 200, 0.05);
-    transform:translateY(-5px);
-}
-.escrito-titulo{
-    font-family:'Bebas Neue',sans-serif;
-    font-size:1.4rem;
-    color:var(--mercurial);
-    margin-bottom:1rem;
-    transition: letter-spacing 0.7s cubic-bezier(0.19, 1, 0.22, 1), color 0.6s ease;
-    letter-spacing: 0.05em;
-}
-.escrito-card:hover .escrito-titulo{
-    letter-spacing: 0.3em;
-    color: #fff;
-}
-.escrito-texto{font-size:0.65rem;line-height:1.8;color:var(--muted);max-height:100px;overflow:hidden}
-
-/* 5. VIDEOS Y MODALES */
-.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
 .video-wrap{position:relative;padding-bottom:56.25%;background:#111;border:0.5px solid var(--border)}
 .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
-.modal-overlay{position:fixed;inset:0;background:rgba(13,13,13,0.98);z-index:200;display:none;padding:6rem 3rem;overflow-y:auto}
+.video-caption{font-size:0.6rem;letter-spacing:0.08em;color:var(--muted);margin-top:0.8rem;line-height:1.6}
+.escritos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
+.escrito-card{border:0.5px solid var(--border);padding:2rem;cursor:pointer;transition:border-color 0.3s;position:relative;overflow:hidden}
+.escrito-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3rem;background:linear-gradient(transparent,var(--bg))}
+.escrito-card:hover{border-color:#4a9cc855}
+.escrito-titulo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.1em;color:var(--mercurial);margin-bottom:1.2rem}
+.escrito-texto{font-size:0.65rem;line-height:2;color:var(--muted);max-height:120px;overflow:hidden}
+.escrito-leer{display:inline-block;margin-top:1.5rem;font-size:0.6rem;letter-spacing:0.15em;color:var(--mercurial);position:relative;z-index:2;background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace}
+.modal-overlay{position:fixed;inset:0;background:rgba(13,13,13,0.97);z-index:200;display:none;overflow-y:auto;padding:4rem 3rem}
 .modal-overlay.open{display:block}
-.modal-title{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--mercurial);margin-bottom:2rem}
-.modal-body{font-size:0.8rem;line-height:2.2;max-width:700px;white-space:pre-wrap}
-.modal-close{position:fixed;top:2rem;right:3rem;background:none;border:none;color:var(--muted);cursor:pointer;font-family:'DM Mono'}
-
-@media(max-width:768px){#portales{grid-template-columns:1fr;height:auto}.portal{height:200px}}
-</style>
+.modal-close{position:fixed;top:2rem;right:3rem;font-size:0.65rem;letter-spacing:0.15em;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'DM Mono',monospace}
+.modal-close:hover{color:var(--text)}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,4rem);letter-spacing:0.1em;color:var(--mercurial);margin-bottom:3rem;max-width:800px}
+.modal-body{font-size:0.7rem;line-height:2.2;color:var(--text);max-width:680px;white-space:pre-wrap}
+.apoyo-section{padding:4rem 3rem;border-top:0.5px solid var(--border)}
+.apoyo-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.1em;color:var(--muted);margin-bottom:2rem}
+.apoyo-mp-wrap{display:flex;align-items:center;gap:3rem;flex-wrap:wrap}
+.apoyo-qr-box{border:0.5px solid var(--border);padding:1rem;background:#0a0a0a;display:inline-flex;flex-direction:column;align-items:center;gap:0.8rem}
+.apoyo-qr-box canvas{display:block}
+.apoyo-qr-label{font-size:0.5rem;letter-spacing:0.15em;color:var(--muted);text-align:center;text-transform:uppercase}
+.apoyo-mp-info{display:flex;flex-direction:column;gap:0.8rem}
+.apoyo-mp-plat{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:0.12em;color:var(--text)}
+.apoyo-mp-alias{font-size:0.75rem;letter-spacing:0.08em;color:var(--muted)}
+.apoyo-mp-alias strong{color:var(--mercurial);letter-spacing:0.12em}
+.apoyo-mp-hint{font-size:0.58rem;letter-spacing:0.06em;color:var(--border);line-height:1.7;max-width:320px}
+#contacto{padding:6rem 3rem;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:2rem}
+.contacto-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,8vw,7rem);letter-spacing:0.08em;color:var(--text);line-height:0.9}
+.contacto-links{display:flex;flex-direction:column;gap:1rem;text-align:right}
+.contacto-links a{font-size:0.65rem;letter-spacing:0.12em;color:var(--muted);text-decoration:none;transition:color 0.3s}
+.contacto-links a:hover{color:var(--text)}
+footer{padding:2rem 3rem;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{gap:1.2rem}
+  #portales{grid-template-columns:1fr;height:auto}
+  .portal{height:200px;border-right:none;border-bottom:0.5px solid var(--border)}
+  .seccion,.apoyo-section{padding:4rem 1.5rem}
+  .modal-overlay{padding:4rem 1.5rem}
+  .modal-close{right:1.5rem}
+  #contacto{padding:4rem 1.5rem}
+}
 </style>
 </head>
 <body>
@@ -499,8 +524,5 @@ QRCode.toCanvas(document.getElementById('qr-mp'),'mercurial23',{
   color:{dark:'#e8e0d0',light:'#0a0a0a'}
 });
 </script>
-</body>
-</html>
-
 </body>
 </html>
