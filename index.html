@@ -18,6 +18,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:
 .nav-links a.placeres:hover{color:var(--placeres)}
 .nav-links a.mercurial:hover{color:var(--mercurial)}
 .nav-links a:hover{color:var(--text)}
+  #canvas-qr:hover {
+  filter: grayscale(0) brightness(1.1);
+  opacity: 1;
+  transform: scale(1.02);
+}
+#canvas-qr canvas {
+  max-width: 100%;
+  height: auto !important;
+  border: 1px solid var(--border);
+}
 #hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;pointer-events:none}
 .hero-col{border-right:0.5px solid var(--border);opacity:0;animation:fadeIn 2s forwards}
@@ -159,6 +169,11 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
     <a href="#placeres" class="placeres">Placeres Plásticos</a>
     <a href="#mercurial" class="mercurial">Mercurial</a>
     <a href="#contacto">Contacto</a>
+    <div class="qr-wrapper" style="margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 2rem;">
+  <div id="canvas-qr" onclick="generarQR()" style="cursor: pointer; filter: grayscale(1) contrast(1.2); opacity: 0.8; transition: all 0.3s ease;">
+    <p style="font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;">Generar QR de Apoyo</p>
+  </div>
+</div>
   </div>
 </nav>
 
@@ -812,6 +827,25 @@ QRCode.toCanvas(document.getElementById('qr-mp'),'mercurial23',{
   width:160,margin:1,
   color:{dark:'#e8e0d0',light:'#0a0a0a'}
 });
+  function generarQR() {
+  const canvasContainer = document.getElementById('canvas-qr');
+  // REEMPLAZA ESTO CON TU LINK DE MERCADO PAGO
+  const miLinkMP = "https://link.mercadopago.com.ar/TU_USUARIO"; 
+
+  canvasContainer.innerHTML = ""; // Limpiamos el texto informativo
+
+  QRCode.toCanvas(miLinkMP, {
+    width: 140,
+    margin: 2,
+    color: {
+      dark: "#e8e0d0",  // El color de tu texto (--text)
+      light: "#0d0d0d"  // El color de tu fondo (--bg)
+    }
+  }, function (error, canvas) {
+    if (error) console.error(error);
+    canvasContainer.appendChild(canvas);
+  });
+}
 </script>
 </body>
 </html>
