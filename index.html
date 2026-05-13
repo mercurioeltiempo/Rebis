@@ -193,7 +193,6 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
 
 <section class="seccion" id="saturno">
   <div class="sec-header">
-    <span class="sec-num">01</span>
     <h2 class="sec-title saturno">Saturno el Tiempo</h2>
     <div class="sec-line"></div>
   </div>
@@ -210,7 +209,6 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
 
 <section class="seccion" id="placeres">
   <div class="sec-header">
-    <span class="sec-num">02</span>
     <h2 class="sec-title placeres">Placeres Plásticos</h2>
     <div class="sec-line"></div>
   </div>
@@ -227,7 +225,6 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
 
 <section class="seccion" id="mercurial">
   <div class="sec-header">
-    <span class="sec-num">03</span>
     <h2 class="sec-title mercurial">Mercurial</h2>
     <div class="sec-line"></div>
   </div>
@@ -787,7 +784,6 @@ function renderBiblioteca(){
     const card = document.createElement('div');
     card.className = 'bib-card';
     card.innerHTML = `
-      <div class="bib-card-num">0${i+1}</div>
       <div class="bib-card-titulo">${t.titulo}</div>
       <div class="bib-card-preview">${t.texto.substring(0,180)}...</div>
       <button class="bib-card-leer" onclick="abrirTextoLib(${i})">→ Leer completo</button>
