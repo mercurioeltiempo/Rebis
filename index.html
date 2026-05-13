@@ -7,8 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0d0d0d;--text:#c8c0b0;--muted:#7a7468;--border:#1e1e1e;--saturno:#7ab84e;--placeres:#b83232;--mercurial:#4a9cc8}
-html{scroll-behavior:smooth}
+:root{--bg:#0d0d0d;--text:#b8b0a0;--muted:#7a7468;--border:#1e1e1e;--saturno:#7ab84e;--placeres:#b83232;--mercurial:#4a9cc8}
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory}
 body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-weight:300;overflow-x:hidden}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(13,13,13,0.95),transparent)}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:0.15em;color:var(--text);text-decoration:none;cursor:pointer}
@@ -18,7 +18,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:
 .nav-links a.placeres:hover{color:var(--placeres)}
 .nav-links a.mercurial:hover{color:var(--mercurial)}
 .nav-links a:hover{color:var(--text)}
-#hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
+#hero{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;scroll-snap-align:start}
 .hero-bg{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;pointer-events:none}
 .hero-col{border-right:0.5px solid var(--border);opacity:0;animation:fadeIn 2s forwards}
 .hero-col:last-child{border-right:none}
@@ -31,7 +31,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:
 .hero-sub{font-size:0.6rem;letter-spacing:0.3em;color:var(--muted);margin-top:1.5rem;position:relative;z-index:2;opacity:0;animation:riseUp 1.2s 0.7s forwards}
 .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'DM Mono',monospace;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
-#portales{display:grid;grid-template-columns:1fr 1fr 1fr;height:60vh;border-top:0.5px solid var(--border)}
+#portales{display:grid;grid-template-columns:1fr 1fr 1fr;height:60vh;border-top:0.5px solid var(--border);scroll-snap-align:start}
 .portal{position:relative;overflow:hidden;cursor:pointer;border-right:0.5px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;padding:2.5rem;transition:background 0.4s}
 .portal:last-child{border-right:none}
 .portal::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.4s}
@@ -46,18 +46,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:
 .portal.saturno:hover .portal-title{color:var(--saturno)}
 .portal.placeres:hover .portal-title{color:var(--placeres)}
 .portal.mercurial:hover .portal-title{color:var(--mercurial)}
-.seccion{padding:6rem 3rem;border-top:0.5px solid var(--border)}
-.sec-header{display:flex;align-items:baseline;gap:2rem;margin-bottom:4rem}
+.seccion{height:100vh;padding:0 3rem;border-top:0.5px solid var(--border);scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;gap:2rem}
+.sec-header{display:flex;align-items:baseline;gap:2rem;margin-bottom:0}
 .sec-num{font-size:0.55rem;letter-spacing:0.2em;color:var(--muted)}
 .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);letter-spacing:0.1em}
 .sec-title.saturno{color:var(--saturno)}
 .sec-title.placeres{color:var(--placeres)}
 .sec-title.mercurial{color:var(--mercurial)}
 .sec-line{flex:1;height:0.5px;background:var(--border)}
-.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
-.video-wrap{position:relative;padding-bottom:56.25%;background:#111;border:0.5px solid var(--border)}
-.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
-.video-caption{font-size:0.6rem;letter-spacing:0.08em;color:var(--muted);margin-top:0.8rem;line-height:1.6}
+.video-grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
+.video-section-body{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.video-side{display:flex;flex-direction:column;gap:1.2rem}
+.video-wrap{position:relative;padding-bottom:56.25%;background:#111;border:0.5px solid var(--border);overflow:hidden}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;pointer-events:none}
+.video-wrap-active iframe{pointer-events:auto}
+.video-play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;background:transparent;border:none}
+.video-play-btn svg{width:56px;height:56px;opacity:0.85;transition:opacity 0.2s}
+.video-play-btn:hover svg{opacity:1}
+.video-thumb{position:absolute;inset:0;background-size:cover;background-position:center;z-index:1}
+.video-caption{font-size:0.6rem;letter-spacing:0.08em;color:var(--muted);line-height:1.6}
+.video-info{display:flex;flex-direction:column;gap:1.5rem}
 .escritos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
 .escrito-card{border:0.5px solid var(--border);padding:2rem;cursor:pointer;transition:border-color 0.3s;position:relative;overflow:hidden}
 .escrito-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3rem;background:linear-gradient(transparent,var(--bg))}
@@ -80,9 +88,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:
 .canal-link span{font-size:0.8rem}
 
 /* BREATHING ANIMATION */
-@keyframes breathe-h1{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
-@keyframes breathe-h2{0%,100%{transform:scale(1)}50%{transform:scale(1.012)}}
-@keyframes breathe-h3{0%,100%{transform:scale(1)}50%{transform:scale(1.007)}}
+@keyframes breathe-h1{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes breathe-h2{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+@keyframes breathe-h3{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
 .breathe-h1{animation:breathe-h1 5s ease-in-out infinite}
 .breathe-h2{animation:breathe-h2 6.5s ease-in-out infinite;display:inline-block;transform-origin:left center}
 .breathe-h3{animation:breathe-h3 8s ease-in-out infinite;display:inline-block;transform-origin:left center}
@@ -158,7 +166,8 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
   .nav-links{gap:1.2rem}
   #portales{grid-template-columns:1fr;height:auto}
   .portal{height:200px;border-right:none;border-bottom:0.5px solid var(--border)}
-  .seccion,.apoyo-section{padding:4rem 1.5rem}
+  .seccion{height:auto;min-height:100vh;padding:5rem 1.5rem 4rem}
+  .video-section-body{grid-template-columns:1fr}
   .modal-overlay{padding:4rem 1.5rem}
   .modal-close{right:1.5rem}
   #contacto{padding:4rem 1.5rem}
@@ -217,18 +226,26 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
     <h2 class="sec-title saturno breathe-h2">Saturno el Tiempo</h2>
     <div class="sec-line"></div>
   </div>
-  <div class="video-grid">
-    <div class="video-item">
-      <div class="video-wrap">
-        <iframe src="https://www.youtube.com/embed/-NA6kQIMIR0" allowfullscreen loading="lazy"></iframe>
+  <div class="video-section-body">
+    <div class="video-side">
+      <div class="video-wrap" id="vwrap-saturno">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/-NA6kQIMIR0/hqdefault.jpg')"></div>
+        <button class="video-play-btn" onclick="playVideo('vwrap-saturno','-NA6kQIMIR0')">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="39" stroke="#7ab84e" stroke-width="1" fill="rgba(13,13,13,0.6)"/>
+            <polygon points="32,24 60,40 32,56" fill="#7ab84e"/>
+          </svg>
+        </button>
       </div>
+    </div>
+    <div class="video-info">
       <p class="video-caption">de Animales a Dioses — Mercurio el Tiempo</p>
+      <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank" class="canal-link saturno-link">
+        <span>◈</span>
+        Ver Canal Completo — Música
+      </a>
     </div>
   </div>
-  <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank" class="canal-link saturno-link">
-    <span>◈</span>
-    Ver Canal Completo — Música
-  </a>
 </section>
 
 <section class="seccion" id="placeres">
@@ -236,21 +253,29 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
     <h2 class="sec-title placeres breathe-h2">Placeres Plásticos</h2>
     <div class="sec-line"></div>
   </div>
-  <div class="video-grid">
-    <div class="video-item">
-      <div class="video-wrap">
-        <iframe src="https://www.youtube.com/embed/80hfp1AyW-I" allowfullscreen loading="lazy"></iframe>
+  <div class="video-section-body">
+    <div class="video-side">
+      <div class="video-wrap" id="vwrap-placeres">
+        <div class="video-thumb" style="background-image:url('https://img.youtube.com/vi/80hfp1AyW-I/hqdefault.jpg')"></div>
+        <button class="video-play-btn" onclick="playVideo('vwrap-placeres','80hfp1AyW-I')">
+          <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="39" stroke="#b83232" stroke-width="1" fill="rgba(13,13,13,0.6)"/>
+            <polygon points="32,24 60,40 32,56" fill="#b83232"/>
+          </svg>
+        </button>
       </div>
+    </div>
+    <div class="video-info">
       <p class="video-caption">Placeres Plásticos — Audiovisual</p>
+      <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank" class="canal-link placeres-link">
+        <span>◈</span>
+        Ver Canal Completo — Audiovisuales
+      </a>
     </div>
   </div>
-  <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank" class="canal-link placeres-link">
-    <span>◈</span>
-    Ver Canal Completo — Audiovisuales
-  </a>
 </section>
 
-<section class="seccion" id="mercurial">
+<section class="seccion" id="mercurial" style="scroll-snap-align:start;height:auto;min-height:100vh">
   <div class="sec-header">
     <h2 class="sec-title mercurial breathe-h2">Mercurial</h2>
     <div class="sec-line"></div>
@@ -1027,6 +1052,12 @@ QRCode.toCanvas(document.getElementById('qr-mp'),'mercurial23',{
   }, {once: true});
 })();
 
+/* ── PLAY VIDEO (click-to-play, oculta UI de YouTube) ── */
+function playVideo(wrapId, videoId){
+  const wrap = document.getElementById(wrapId);
+  wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&modestbranding=1&rel=0&showinfo=0" allowfullscreen allow="autoplay" style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>`;
+};
+
 /* ── GRAIN EFFECT ── */
 (function(){
   const canvas = document.getElementById('grain-canvas');
@@ -1066,4 +1097,3 @@ QRCode.toCanvas(document.getElementById('qr-mp'),'mercurial23',{
 </script>
 </body>
 </html>
-
