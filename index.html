@@ -60,10 +60,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:
 .video-wrap{position:relative;padding-bottom:56.25%;background:#111;border:0.5px solid var(--border);overflow:hidden;cursor:pointer}
 .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none;pointer-events:none}
 .video-wrap.video-activo iframe{pointer-events:auto}
-.video-click-overlay{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;background:transparent;transition:opacity 0.3s}
+.video-click-overlay{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;background:transparent;transition:opacity 0.3s;cursor:pointer}
+.video-click-overlay::before{content:'';position:absolute;inset:0;z-index:-1}
 .video-wrap.video-activo .video-click-overlay{display:none}
 .video-click-overlay svg{width:52px;height:52px}
-.video-click-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;color:var(--muted);text-transform:uppercase}
+.video-click-label{font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase}
 .video-wrap-active iframe{pointer-events:auto}
 .video-play-btn{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2;background:transparent;border:none}
 .video-play-btn svg{width:56px;height:56px;opacity:0.85;transition:opacity 0.2s}
@@ -237,12 +238,12 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
         <iframe id="iframe-saturno"
           src="https://www.youtube.com/embed/-NA6kQIMIR0?autoplay=1&mute=1&controls=0&loop=1&playlist=-NA6kQIMIR0&modestbranding=1&rel=0&showinfo=0&playsinline=1"
           allow="autoplay; fullscreen" loading="lazy"></iframe>
-        <div class="video-click-overlay" id="overlay-saturno">
+        <div class="video-click-overlay" id="overlay-saturno" style="pointer-events:all">
           <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="40" cy="40" r="39" stroke="#7ab84e" stroke-width="1" fill="rgba(13,13,13,0.5)"/>
             <polygon points="32,24 60,40 32,56" fill="#7ab84e"/>
           </svg>
-          <span class="video-click-label">Activar con audio</span>
+          <span class="video-click-label" style="color:#7ab84e">Activar con audio</span>
         </div>
       </div>
     </div>
@@ -267,12 +268,12 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
         <iframe id="iframe-placeres"
           src="https://www.youtube.com/embed/80hfp1AyW-I?autoplay=1&mute=1&controls=0&loop=1&playlist=80hfp1AyW-I&modestbranding=1&rel=0&showinfo=0&playsinline=1"
           allow="autoplay; fullscreen" loading="lazy"></iframe>
-        <div class="video-click-overlay" id="overlay-placeres">
+        <div class="video-click-overlay" id="overlay-placeres" style="pointer-events:all">
           <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="40" cy="40" r="39" stroke="#b83232" stroke-width="1" fill="rgba(13,13,13,0.5)"/>
             <polygon points="32,24 60,40 32,56" fill="#b83232"/>
           </svg>
-          <span class="video-click-label">Activar con audio</span>
+          <span class="video-click-label" style="color:#b83232">Activar con audio</span>
         </div>
       </div>
     </div>
@@ -1113,4 +1114,3 @@ function activarVideo(wrapId, videoId){
 </script>
 </body>
 </html>
-
