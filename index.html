@@ -830,7 +830,7 @@ QRCode.toCanvas(document.getElementById('qr-mp'),'mercurial23',{
   function generarQR() {
   const canvasContainer = document.getElementById('canvas-qr');
   // REEMPLAZA ESTO CON TU LINK DE MERCADO PAGO
-  const miLinkMP = "https://link.mercadopago.com.ar/TU_USUARIO"; 
+  const miLinkMP = "link.mercadopago.com.ar/proyectorebis"; 
 
   canvasContainer.innerHTML = ""; // Limpiamos el texto informativo
 
@@ -838,7 +838,7 @@ QRCode.toCanvas(document.getElementById('qr-mp'),'mercurial23',{
     width: 140,
     margin: 2,
     color: {
-      dark: "#e8e0d0",  // El color de tu texto (--text)
+      dark: "#e8e0d0"  // El color de tu texto (--text)
       light: "#0d0d0d"  // El color de tu fondo (--bg)
     }
   }, function (error, canvas) {
