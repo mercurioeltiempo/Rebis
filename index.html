@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0d0d0d;--text:#e8e0d0;--muted:#7a7468;--border:#1e1e1e;--saturno:#7ab84e;--placeres:#b83232;--mercurial:#4a9cc8}
+:root{--bg:#0d0d0d;--text:#c8c0b0;--muted:#7a7468;--border:#1e1e1e;--saturno:#7ab84e;--placeres:#b83232;--mercurial:#4a9cc8}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-weight:300;overflow-x:hidden}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(to bottom,rgba(13,13,13,0.95),transparent)}
@@ -70,6 +70,22 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.5rem 3rem;display:
 .biblioteca-link{display:inline-flex;align-items:center;gap:1rem;margin-top:3rem;padding:1.2rem 2rem;border:0.5px solid #4a9cc840;color:var(--mercurial);text-decoration:none;font-size:0.65rem;letter-spacing:0.15em;transition:all 0.3s;cursor:pointer;background:none;font-family:'DM Mono',monospace}
 .biblioteca-link:hover{border-color:var(--mercurial);background:rgba(74,156,200,0.04)}
 .biblioteca-link span{font-size:0.8rem}
+
+/* CANAL LINKS */
+.canal-link{display:inline-flex;align-items:center;gap:1rem;margin-top:3rem;padding:1.2rem 2rem;text-decoration:none;font-size:0.65rem;letter-spacing:0.15em;transition:all 0.3s;font-family:'DM Mono',monospace}
+.saturno-link{border:0.5px solid #7ab84e40;color:var(--saturno)}
+.saturno-link:hover{border-color:var(--saturno);background:rgba(122,184,78,0.04)}
+.placeres-link{border:0.5px solid #b8323240;color:var(--placeres)}
+.placeres-link:hover{border-color:var(--placeres);background:rgba(184,50,50,0.04)}
+.canal-link span{font-size:0.8rem}
+
+/* BREATHING ANIMATION */
+@keyframes breathe-h1{0%,100%{transform:scale(1)}50%{transform:scale(1.018)}}
+@keyframes breathe-h2{0%,100%{transform:scale(1)}50%{transform:scale(1.012)}}
+@keyframes breathe-h3{0%,100%{transform:scale(1)}50%{transform:scale(1.007)}}
+.breathe-h1{animation:breathe-h1 5s ease-in-out infinite;display:inline-block;transform-origin:left center}
+.breathe-h2{animation:breathe-h2 6.5s ease-in-out infinite;display:inline-block;transform-origin:left center}
+.breathe-h3{animation:breathe-h3 8s ease-in-out infinite;display:inline-block;transform-origin:left center}
 
 /* MODAL ESCRITOS */
 .modal-overlay{position:fixed;inset:0;background:rgba(13,13,13,0.97);z-index:400;display:none;overflow-y:auto;padding:4rem 3rem}
@@ -172,32 +188,32 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
     <div class="hero-col"></div>
     <div class="hero-col"></div>
   </div>
-  <h1 class="hero-title">REBIS</h1>
-  <p class="hero-sub">Música · Audiovisual · Escritura</p>
+  <h1 class="hero-title breathe-h1">REBIS</h1>
+  <p class="hero-sub">Música · Audiovisuales · Escritos</p>
   <button class="hero-scroll" onclick="document.getElementById('portales').scrollIntoView({behavior:'smooth'})">↓ &nbsp; Entrar</button>
 </section>
 
 <div id="portales">
   <div class="portal saturno" onclick="document.getElementById('saturno').scrollIntoView({behavior:'smooth'})">
     <span class="portal-arrow">↗</span>
-    <div class="portal-title">Saturno<br>el Tiempo</div>
+    <div class="portal-title breathe-h2">Saturno<br>el Tiempo</div>
     <div class="portal-desc">Música</div>
   </div>
   <div class="portal placeres" onclick="document.getElementById('placeres').scrollIntoView({behavior:'smooth'})">
     <span class="portal-arrow">↗</span>
-    <div class="portal-title">Placeres<br>Plásticos</div>
+    <div class="portal-title breathe-h2">Placeres<br>Plásticos</div>
     <div class="portal-desc">Audiovisual</div>
   </div>
   <div class="portal mercurial" onclick="document.getElementById('mercurial').scrollIntoView({behavior:'smooth'})">
     <span class="portal-arrow">↗</span>
-    <div class="portal-title">Mercurial</div>
+    <div class="portal-title breathe-h2">Mercurial</div>
     <div class="portal-desc">Escritura</div>
   </div>
 </div>
 
 <section class="seccion" id="saturno">
   <div class="sec-header">
-    <h2 class="sec-title saturno">Saturno el Tiempo</h2>
+    <h2 class="sec-title saturno breathe-h2">Saturno el Tiempo</h2>
     <div class="sec-line"></div>
   </div>
   <div class="video-grid">
@@ -208,12 +224,15 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
       <p class="video-caption">de Animales a Dioses — Mercurio el Tiempo</p>
     </div>
   </div>
-  <p style="font-size:0.6rem;color:var(--muted);margin-top:2rem;letter-spacing:0.08em;">→ <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank" style="color:var(--saturno);text-decoration:none;letter-spacing:0.1em;">Ver canal completo ↗</a></p>
+  <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank" class="canal-link saturno-link">
+    <span>◈</span>
+    Ver Canal Completo — Música
+  </a>
 </section>
 
 <section class="seccion" id="placeres">
   <div class="sec-header">
-    <h2 class="sec-title placeres">Placeres Plásticos</h2>
+    <h2 class="sec-title placeres breathe-h2">Placeres Plásticos</h2>
     <div class="sec-line"></div>
   </div>
   <div class="video-grid">
@@ -224,12 +243,15 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
       <p class="video-caption">Placeres Plásticos — Audiovisual</p>
     </div>
   </div>
-  <p style="font-size:0.6rem;color:var(--muted);margin-top:2rem;letter-spacing:0.08em;">→ <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank" style="color:var(--placeres);text-decoration:none;letter-spacing:0.1em;">Ver canal completo ↗</a></p>
+  <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank" class="canal-link placeres-link">
+    <span>◈</span>
+    Ver Canal Completo — Audiovisuales
+  </a>
 </section>
 
 <section class="seccion" id="mercurial">
   <div class="sec-header">
-    <h2 class="sec-title mercurial">Mercurial</h2>
+    <h2 class="sec-title mercurial breathe-h2">Mercurial</h2>
     <div class="sec-line"></div>
   </div>
   <div class="escritos-grid" id="escritos-grid"></div>
@@ -282,7 +304,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
     <!-- Pantalla de acceso -->
     <div id="bib-acceso">
       <div class="acceso-wrap">
-        <div class="acceso-titulo">Biblioteca</div>
+        <div class="acceso-titulo breathe-h1">Biblioteca</div>
         <p class="acceso-sub">
           Este archivo contiene la obra escrita completa.<br>
           Para acceder, colaborá con lo que puedas y escribime<br>
@@ -313,7 +335,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
     <!-- Contenido de la biblioteca (oculto hasta ingresar clave) -->
     <div id="bib-contenido" style="display:none">
       <div class="bib-header">
-        <div class="bib-titulo">Biblioteca<br>Completa</div>
+        <div class="bib-titulo breathe-h1">Biblioteca<br>Completa</div>
         <div class="bib-sub">Archivo Mercurial — Obra escrita</div>
       </div>
       <div class="bib-grid" id="bib-grid"></div>
@@ -718,6 +740,187 @@ Serendipia procesual y performativa, íntima y sobre todo real.
 Un recuerdo que se puede tocar. Señala la inercia del tiempo y su empuje, sus picos y valles, su peso, su diferencia.
 
 Autopoiesis para dos, de un todo hacia un otro.`
+  },
+  {
+    titulo: "Salmos",
+    texto: `XXX
+
+Como dinámica gravitatoria se ocultó tras una danza, un ornamento, tal vez cicatriz; y de su apariencia una sospecha. Empujaseme al juego.
+
+El misterio no con-(s)ciente.
+
+Observar con el rabillo del ojo puede dar pistas.
+
+Siete de la mañana, y la ciudad me es extraña. Zapatillas que avanzan solas, una blanca y otra negra; par de caballos acordonados.
+
+Al interior de mi boca, una pasta de arena; por las fosas nasales, espesura y calor de tabaco que me recordaba: un cigarro en la mano.
+
+Relajar la piel entre los ojos. ¿Por qué ese gesto?
+
+Aversión y sospecha, paranoia.
+
+-¿Me siguen?
+
+Volteo, mis zapatos no.
+
+-¿Seré yo quien persigue?
+
+Pronoia y recelo, mis zapatillas al galope mientras el resto de mí, confuso y húmedo dos cuadras atrás, donde algo se movió, creció, se acercó.
+
+Decir que sus facciones cambian a cada momento es mentir, o hablar de su ausencia, que me resulta tanto absurda como posible. Tal vez multiplicidad masiva que jamás se me presentase en forma de rostro.
+
+Del escepticismo al horror y de(l) Este a la risa,
+porque la curiosidad usa recuerdos de sustrato.
+
+Con pies delante y cabeza atrás, todo lo azul se estiró hacia el rojo.
+
+La figura modulaba el aire:
+
+— Un cubo en la mañana; un monolito en la tarde; una pirámide en la noche y un teseracto en un nuevo día.
+
+Yo, fingiendo modular neuronas, asiento.
+
+Una hendidura entre mis costillas dejó escapar el contenido de mis pulmones. Levanto mi ropa, veo la herida, unos dedos se deslizan a su interior, en un acople de flujo ascético, quirúrgico y exquisito. La pierna izquierda hundida en el suelo, petrificada, y la otra girando de misericordia, siendo esa su manera de invitarme a pasar.
+
+Acepto.
+
+XXI
+
+Seis centímetros de distancia — de la puerta de acero a mi costado— a la trompa de su auto.
+
+Atravesando dos capas de vidrio hice contacto con sus iris. Brillaban, acaso lágrimas o reflejo lumínico de su propia máquina. Iba solo, aquí tres.
+
+Cada músculo en tensión. Pupilas dilatadas y el metal se plegó sobre sí mismo, dos vehículos crocantes devinieron escultura de fierro y carne.
+
+Atravesó la primera; la segunda capa, su cara se comprimió hasta explotar en pequeños filos, despejando así el espacio entre nuestros cuerpos. Su cráneo impactó en mi entrecejo, aplastando la piel y exponiendo los huesos. Las dos cabezas fundiéndose en un beso a ciento veinte kilómetros por hora.
+
+XXXI
+
+Mi pierna derecha dejó de girar y trepó hasta mi cuello. Susurró a mi oído:
+
+— Un círculo, una esfera, un toroide. Si olvidaras la fricción, la temperatura sería sonido.
+
+Pareidolia semántica. La frase se cayó de mí.
+
+Queriendo proteger los límites, noté un otro lado, otros lados.
+
+Demiurgo narcisista, tan íntimo en su escucha radical, psicópata de artificio queriendo entumecerme de novedad.
+
+Decía venir del instante anterior al pensamiento, ser el acto por el cual Dios se retira para que algo exista.
+
+XI
+
+Todo texto es un grimorio si se lo recita en el tono correcto.
+
+¿Dijiste sabotaje estético?
+
+Política poética de la insubordinación simbólica.
+
+Una parafilia teórica y un hermetismo táctico.
+
+Texto erógeno hipersaturado de confusión que cauteriza a quien lo ve.`
+  },
+  {
+    titulo: "Prima Arcana",
+    texto: `Una Lemniscata Nimbo se dibujó en su cabeza y ocultó uno de sus pies que, firmes, se arraigaron al suelo.
+
+Sostenía en una mano una vara potencial y en la otra una moneda.
+
+Con postura inicial, representaba la apertura y una doble operación, una doble agencia: por un lado, la sutura narrativa, mecanismo técnico que por ocultamiento une al receptor con la historia. Por otro, garantía del acto de fe, la suspensión de la incredulidad, sin la cual no habría inmersión ni significación emotiva.
+
+Sobre su mesa, herramientas y elementos se dispusieron acompañando su gesto liminal, un montaje consciente que establecía un pacto informativo y abría un campo de posibilidades.
+
+De estas operaciones se infirieron dos dimensiones de acción: una esotérica, que simultáneamente ocultaba los empalmes del montaje, manteniendo la ilusión diegética y estableciendo vínculos y valores simbólicos; y una exotérica, que habitaba lo visible y manifiesto de la obra.
+
+Exponer un truco y sugerir su trascendencia, su misterio, se articulaba con el consentimiento, la complicidad, fundamento para el despliegue de un espacio simbólico interno: la atención, puente hacia el receptor.
+
+Aquí la regla vampírica de la invitación: explícita para que el vampiro cruce el umbral, pero inconsciente para el huésped; un enigma seductor como diferencia potencial que surge de exponer el artificio, pero no el secreto.`
+  },
+  {
+    titulo: "El Hacedor",
+    texto: `Como un buen mirar que objetive el mundo hasta su integración y esa fantasía de paralaje cuando la alternancia entre estados. Un gran verbo que legitima, proporciona espesura y dirección, identidad. Allí donde todos los puentes concatenan, ayoico hiperindividuo que arroga historias, ensueños, asomando así un porqué.
+
+Y lo similar en cercanía como una danza que itera recorridos, del Dios a la Bestia, donde es posibilidad, espectro, una onda que colapsa.
+
+Dudas, mapas y certezas mirando por detrás de mi rostro como lo hace un bulto de ropa en la obscuridad; y yo, que tal vez no sepa quién soy, al menos sostengo tímidamente un cuando.
+
+Aglutinar deseo y vomitar sentido en amatoria cotidiana, en la luz de las telas, el reposo de una cuerda; estímulo y frontera, impulsos eléctricos, todo en caída hacia un músculo, gesto extradiegético que recapitula.
+
+Palpita aquí la carne que nos une, viento prometeico el dejar ausencia, polivalente y estoico movimiento emocional que arrebata un cráneo, sacude un vientre y llena de agua palmas y pechos.
+
+Gradiente rizoma de obsidiana sugestiva que eleva la categoría experiencial hacia lo alucinatorio cual oximorónica boda (Rebis), propiciando así, nos orbitemos.
+
+Hacedores y un artificio de supersticie que sostienen, el hechizo, feitiço en portugués, fetiche en francés.
+
+Oikonomia, entre máscaras, producción e intercambio; entre cosas, dinero y mercancías.
+
+Libido que mira objetos y el fetichisme dans l´amour.
+
+Ícono concupiscible como un beso a la distancia y su humedad prosódica. Tensión y diástole de reflexivas volutas en electrónica dicha.
+
+Amígdala, lóbulos y cortezas burbujeantes. Placeres ubicuos y oceánicos que regalan epifanías, relegan fantasmas y religan órdenes alternativos.`
+  },
+  {
+    titulo: "El manto relativo de Pigmatón",
+    texto: `Una lengua se apersonó ante mí.
+
+Desde un ángulo insólito que no podría describir más que como ni allí, ni allí, ni allí. Aumentó su tamaño en un zigzag reptante. Le siguió una dentadura de huesos salpicados y unos labios catenarios, pero no cuello, ni ojos, ni rostro.
+
+Debajo se desplegó su cuerpo como un telón teatral acompañado del grave silbido del viento contra sus pliegues, que cambiaban de textura y color con cada ciclo de tensión.
+
+Vi cómo esa lengua era mordida con tal énfasis, que separaba la punta del resto de la boca semivolante, dando paso a la rúbrica del espasmo. A partir de ahí nada quedó en el vacío, derramando el contenido de su torso genuflexo a través del hueco que la ausencia de cabeza atestiguaba, miasma de ese verde de agua regia que cambia con la fuerza de corte.
+
+Filamentos de actina y miosina se separaban, el calcio volvía hacia el músculo, polarizando, y la membrana recuperaba su potencial, la hendidura sináptica se disipó y la neurona calló su impulso, y con ella, el axón.
+
+Su vómito me cayó en los pies. No pude más que volver sobre mis pasos.
+
+Reemplacé perplejidad por acción, me incliné hacia adelante, hundiendo la dermis de mis dedos en su regalo, contraje los brazos en diagonales internas y toqué mi lengua.
+
+Mi pupila se dilató hasta alcanzar el tamaño de una puerta por la que pasar, su forma de semilla me indicaba que era una fundación. De apertura total su luz empujaba mi pecho desde adentro, y en su repetición un oleaje que coordinaba cada órgano y vértice perceptual. La sangre se endulzó intensificando el presente, que daba lugar al desborde perceptivo, saturado.
+
+El texto sabía que lo estaba escribiendo, eso me aterró.`
+  },
+  {
+    titulo: "Coagular",
+    texto: `Íbamos sentadas una junto a la otra, tan apretadas que podía oír con claridad el murmullo de sus auriculares: la voz de Terence McKenna diciendo que la única diferencia entre una computadora y una droga radica en que la computadora es demasiado grande para tragarla.
+
+Sin embargo, ahí estaban —chicas y chicos masticando silicio, con sus uniformes, nunca dos iguales— de labios violetas y ojos hundidos, disponibles para cualquier rito heterotópico.
+
+Nada tiene de secular un sound system o una mezcladora de audio.
+
+Una Sacristía: purifica su cuerpo con agua, elige sus telas cuidadosamente —colores y texturas, accesorios y tintas para su máscara— pulveriza extractos de flores sintéticas en el aire y atraviesa la nube. Encara la calle a la espera de que ese mito llamado bondi le acerque a su acólito de confianza. Eucaristía bajo la lengua para unos pasos eléctricos, mercuriales, hacia el interior de un bosque luminiscente, neón.
+
+¿Podés escucharlo? Pulso de subgraves que tensa el aire a intervalos regulares y complejos.
+
+Con un cuerpo —centro motor— en fase, no paro de pensar en la voz del cartógrafo de subconscientes maquínicos, Erik Davis, repitiendo como un mantra un concepto: TechGnosis. La historia de las tecnologías de la comunicación sería indisociable de los impulsos místicos, mágicos y religiosos que han definido la conciencia humana desde sus inicios.
+
+Una tecnología lo suficientemente compleja se vuelve indistinguible de la magia. Trae consigo su propia liturgia, sus prácticas.
+
+Y acá estamos nosotras, donde lo virtual y lo real se relacionan en una aparente igualdad ontológica. Con un terrible sabor a deja vu. Fronteras que se corren, lo lejano y lo cercano mezclados.
+
+Post Hoc Ergo Propter Hoc planetario de todas maneras. Alucinación consensuada.`
+  },
+  {
+    titulo: "Disolver",
+    texto: `Uno de los auriculares colgaba de mi pecho; el otro, todavía prendido a mi oreja, canturreaba la data psicodélica, con ese tono nasal y meditativo típico de Terence.
+
+Entonces su mano sacudió la manga de mi campera. Cibersigilismo de pies a cabeza: cuero, layers, hebillas y pelos imposibles. La mirada oblicua pero no su atención, dada a la pequeña pantalla que disparaba fotones a su rostro. Espejo sintético. Con la precisión de un orfebre distribuía líneas negras desde sus lagrimales contorneando símbolos orgánicos, casi ergonómicos.
+
+—Dale, que en la próxima bajamos.
+
+Adormecida por el vibrar del colectivo me paro y la sigo. Mi piel contra el ardiente metal de la máquina, articulaciones extendidas, forcejeo de cuerpos indistintos y apretados en una boca húmeda que avanza a 69 km por hora. Mastica y deglute. Nos escupe gratamente.
+
+No puede ser otra cosa más que una broma. Puente con lo irracional. Con lo que está donde no se supone. Transracional y umbralada su deriva, tan familiar. La rareza va en aumento. Son esas máquinas vivas que sueñan mirarme desde todos los ángulos posibles. Ojo externalizado, un persistente observador fuera, un lente convergente. Simetría o espejismo.
+
+Tan complejo el simulacro que solo inspira liturgia. Así nada tiene de secular un sound system, una mezcladora de audio. Juegos santos para imaginaciones sagradas. Y tantos fetiches como monedas de cambio o condenas.`
+  },
+  {
+    titulo: "Umbrales",
+    texto: `Fuego en una flor y me pregunto: ¿Qué mierda acabo de leer?. Terrorismo esteticista. Cada carácter y su correspondiente imago. Trucos de magia y sugerencias de Hermes Thot. Una pose.
+
+El propio acto volitivo es una forma de rito, de invocación, un intento de señalar algo que no está ahí. Todo el juego de agencias y arcontes, dioses de pies alados y demonios confusos. Un vaivén eléctrico de contracciones y alivios.
+
+Y una acá, con un mapa y sin suelo. Mejor detenerse a un lado del camino por un instante y prender un cigarrillo cognitivo con sabor a sueño, lleno de rareza e intimidad, como quien escribe, antes de entrar al bosque donde la música espera.`
   }
 ];
 
@@ -727,7 +930,7 @@ escritos.forEach((e,i)=>{
   const card = document.createElement('div');
   card.className = 'escrito-card';
   card.innerHTML = `
-    <div class="escrito-titulo">${e.titulo}</div>
+    <div class="escrito-titulo breathe-h3">${e.titulo}</div>
     <div class="escrito-texto">${e.texto.substring(0,220)}...</div>
     <button class="escrito-leer" onclick="abrirModal(${i})">→ Leer completo</button>
   `;
@@ -783,7 +986,7 @@ function renderBiblioteca(){
     const card = document.createElement('div');
     card.className = 'bib-card';
     card.innerHTML = `
-      <div class="bib-card-titulo">${t.titulo}</div>
+      <div class="bib-card-titulo breathe-h3">${t.titulo}</div>
       <div class="bib-card-preview">${t.texto.substring(0,180)}...</div>
       <button class="bib-card-leer" onclick="abrirTextoLib(${i})">→ Leer completo</button>
     `;
