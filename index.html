@@ -6,7 +6,7 @@
 <title>REBIS</title>
 <!-- ── SEGURIDAD: Content Security Policy ── -->
 <meta http-equiv="Content-Security-Policy"
-  content="default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com; frame-src www.youtube.com; img-src 'self' data: blob:; connect-src 'none';">
+  content="default-src 'self'; script-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com; frame-src www.youtube.com; img-src 'self' data: blob:; connect-src 'none';">
 <!-- ── SEGURIDAD: Permissions Policy ── -->
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
 <!-- ── SEGURIDAD: Anti-clickjacking ── -->
@@ -195,7 +195,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
 <body>
 
 <nav>
-  <a class="nav-logo" onclick="scrollTo({top:0,behavior:'smooth'})">REBIS</a>
+  <a class="nav-logo" id="nav-logo">REBIS</a>
   <div class="nav-links">
     <a href="#saturno" class="saturno">Saturno el Tiempo</a>
     <a href="#placeres" class="placeres">Placeres Plásticos</a>
@@ -213,21 +213,21 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
   </div>
   <h1 class="hero-title" id="hero-title">REBIS</h1>
   <p class="hero-sub">Música · Audiovisuales · Escritos</p>
-  <button class="hero-scroll" onclick="document.getElementById('portales').scrollIntoView({behavior:'smooth'})">↓ &nbsp; Entrar</button>
+  <button class="hero-scroll" id="hero-scroll-btn">↓ &nbsp; Entrar</button>
 </section>
 
 <div id="portales">
-  <div class="portal saturno" onclick="document.getElementById('saturno').scrollIntoView({behavior:'smooth'})">
+  <div class="portal saturno" id="portal-saturno">
     <span class="portal-arrow">↗</span>
     <div class="portal-title breathe-h2">Saturno<br>el Tiempo</div>
     <div class="portal-desc">Música</div>
   </div>
-  <div class="portal placeres" onclick="document.getElementById('placeres').scrollIntoView({behavior:'smooth'})">
+  <div class="portal placeres" id="portal-placeres">
     <span class="portal-arrow">↗</span>
     <div class="portal-title breathe-h2">Placeres<br>Plásticos</div>
     <div class="portal-desc">Audiovisual</div>
   </div>
-  <div class="portal mercurial" onclick="document.getElementById('mercurial').scrollIntoView({behavior:'smooth'})">
+  <div class="portal mercurial" id="portal-mercurial">
     <span class="portal-arrow">↗</span>
     <div class="portal-title breathe-h2">Mercurial</div>
     <div class="portal-desc">Escritura</div>
@@ -241,7 +241,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
   </div>
   <div class="video-section-body">
     <div class="video-side">
-      <div class="video-wrap video-muted" id="vwrap-saturno" onclick="activarVideo('vwrap-saturno','-NA6kQIMIR0')">
+      <div class="video-wrap video-muted" id="vwrap-saturno" data-video-id="-NA6kQIMIR0">
         <iframe id="iframe-saturno"
           src="https://www.youtube.com/embed/-NA6kQIMIR0?autoplay=1&mute=1&controls=0&loop=1&playlist=-NA6kQIMIR0&modestbranding=1&rel=0&showinfo=0&playsinline=1"
           allow="autoplay; fullscreen" loading="lazy"></iframe>
@@ -271,7 +271,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
   </div>
   <div class="video-section-body">
     <div class="video-side">
-      <div class="video-wrap video-muted" id="vwrap-placeres" onclick="activarVideo('vwrap-placeres','80hfp1AyW-I')">
+      <div class="video-wrap video-muted" id="vwrap-placeres" data-video-id="80hfp1AyW-I">
         <iframe id="iframe-placeres"
           src="https://www.youtube.com/embed/80hfp1AyW-I?autoplay=1&mute=1&controls=0&loop=1&playlist=80hfp1AyW-I&modestbranding=1&rel=0&showinfo=0&playsinline=1"
           allow="autoplay; fullscreen" loading="lazy"></iframe>
@@ -301,7 +301,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
   </div>
   <div class="escritos-grid" id="escritos-grid"></div>
 
-  <button class="biblioteca-link" onclick="abrirBiblioteca()">
+  <button class="biblioteca-link" id="btn-biblioteca">
     <span>◈</span>
     Acceder a la Biblioteca Completa
   </button>
@@ -320,7 +320,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
 <section id="contacto">
   <div class="contacto-title">Entrar<br>en<br>Contacto</div>
   <div class="contacto-links">
-    <a id="contacto-email" href="#" onclick="return false;" style="cursor:pointer">Cargando... ↗</a>
+    <a id="contacto-email" href="#" style="cursor:pointer">Cargando... ↗</a>
     <a href="https://www.instagram.com/http_mercurial/" target="_blank" rel="noopener noreferrer">Instagram — @http_mercurial ↗</a>
     <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank" rel="noopener noreferrer">YouTube — Saturno el Tiempo ↗</a>
     <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank" rel="noopener noreferrer">YouTube — Placeres Plásticos ↗</a>
@@ -335,14 +335,14 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
 
 <!-- Modal escritos individuales -->
 <div class="modal-overlay" id="modal">
-  <button class="modal-close" onclick="cerrarModal()">✕ &nbsp; CERRAR</button>
+  <button class="modal-close" id="modal-close-btn">✕ &nbsp; CERRAR</button>
   <div class="modal-title" id="modal-title"></div>
   <div class="modal-body" id="modal-body"></div>
 </div>
 
 <!-- Biblioteca modal -->
 <div id="biblioteca-modal">
-  <button class="bib-close" onclick="cerrarBiblioteca()">✕ &nbsp; CERRAR</button>
+  <button class="bib-close" id="bib-close-btn">✕ &nbsp; CERRAR</button>
   <div class="bib-inner">
 
     <!-- Pantalla de acceso -->
@@ -352,7 +352,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
         <p class="acceso-sub">
           Este archivo contiene la obra escrita completa.<br>
           Para acceder, colaborá con lo que puedas y escribime<br>
-          a <a id="bib-email-link" href="#" onclick="return false;" style="cursor:pointer">este correo</a> o por <a href="https://www.instagram.com/http_mercurial/" target="_blank" rel="noopener noreferrer">Instagram</a><br>
+          a <a id="bib-email-link" href="#" style="cursor:pointer">este correo</a> o por <a href="https://www.instagram.com/http_mercurial/" target="_blank" rel="noopener noreferrer">Instagram</a><br>
           con el comprobante. Te mando la clave.
         </p>
         <div class="acceso-pagos">
@@ -367,9 +367,9 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
           </div>
         </div>
         <div class="acceso-form">
-          <input class="acceso-input" id="clave-input" type="password" placeholder="Ingresá la clave" onkeydown="if(event.key==='Enter')verificarClave()">
+          <input class="acceso-input" id="clave-input" type="password" placeholder="Ingresá la clave" autocomplete="off">
           <div class="acceso-error" id="clave-error"></div>
-          <button class="acceso-btn" onclick="verificarClave()">→ &nbsp; Entrar</button>
+          <button class="acceso-btn" id="acceso-btn">→ &nbsp; Entrar</button>
           <div class="acceso-divider"></div>
           <p class="acceso-hint">El monto es libre. Cualquier colaboración<br>sostiene la continuidad de la obra.</p>
         </div>
@@ -389,6 +389,16 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
 </div>
 
 <script>
+/* ══════════════════════════════════════════════════════════════════
+   NOTA DE ARQUITECTURA DE SEGURIDAD
+   El contenido está encapsulado en una IIFE: no es accesible desde
+   consola (window.biblioteca / window.escritos = undefined).
+   LIMITACIÓN: en un sitio estático sin backend, el contenido existe
+   en el cliente. La clave+hash protege la UI pero no el bundle.
+   Para protección total se requiere un backend que valide server-side.
+   ══════════════════════════════════════════════════════════════════ */
+(function(){
+
 /* ── TEXTOS PRINCIPALES (3) ── */
 const escritos = [
   {
@@ -1106,6 +1116,75 @@ document.addEventListener('keydown',e=>{
     cerrarBiblioteca();
   }
 });
+
+/* ── LISTENERS PARA REEMPLAZAR TODOS LOS onclick INLINE ── */
+document.addEventListener('DOMContentLoaded', function(){
+  /* Nav logo → scroll top */
+  const navLogo = document.getElementById('nav-logo');
+  if(navLogo) navLogo.addEventListener('click', () => scrollTo({top:0,behavior:'smooth'}));
+
+  /* Hero scroll button */
+  const heroScrollBtn = document.getElementById('hero-scroll-btn');
+  if(heroScrollBtn) heroScrollBtn.addEventListener('click', () =>
+    document.getElementById('portales').scrollIntoView({behavior:'smooth'}));
+
+  /* Portales */
+  const portalMap = {
+    'portal-saturno': 'saturno',
+    'portal-placeres': 'placeres',
+    'portal-mercurial': 'mercurial'
+  };
+  Object.entries(portalMap).forEach(([elId, targetId]) => {
+    const el = document.getElementById(elId);
+    if(el) el.addEventListener('click', () =>
+      document.getElementById(targetId).scrollIntoView({behavior:'smooth'}));
+  });
+
+  /* Video wraps */
+  ['vwrap-saturno','vwrap-placeres'].forEach(wrapId => {
+    const wrap = document.getElementById(wrapId);
+    if(wrap) wrap.addEventListener('click', () =>
+      activarVideo(wrapId, wrap.dataset.videoId));
+  });
+
+  /* Biblioteca */
+  const btnBib = document.getElementById('btn-biblioteca');
+  if(btnBib) btnBib.addEventListener('click', abrirBiblioteca);
+
+  /* Cerrar modal */
+  const modalCloseBtn = document.getElementById('modal-close-btn');
+  if(modalCloseBtn) modalCloseBtn.addEventListener('click', cerrarModal);
+  document.getElementById('modal').addEventListener('click', function(e){
+    if(e.target === this) cerrarModal();
+  });
+
+  /* Cerrar biblioteca */
+  const bibCloseBtn = document.getElementById('bib-close-btn');
+  if(bibCloseBtn) bibCloseBtn.addEventListener('click', cerrarBiblioteca);
+
+  /* Acceso clave */
+  const accesoBtnEl = document.getElementById('acceso-btn');
+  if(accesoBtnEl) accesoBtnEl.addEventListener('click', verificarClave);
+  const claveInput = document.getElementById('clave-input');
+  if(claveInput) claveInput.addEventListener('keydown', e => {
+    if(e.key === 'Enter') verificarClave();
+  });
+});
+
+/* ── EXPOSICIÓN CONTROLADA AL SCOPE GLOBAL ──
+   Solo las funciones que necesitan ser llamadas desde onclick del HTML
+   se exponen, a través de un namespace único (window.R).
+   Las variables de estado (intentosFallidos, bloqueadoHasta, bibRenderizado)
+   permanecen privadas dentro de esta IIFE y no son manipulables desde consola. */
+window.R = Object.freeze({
+  activarVideo,
+  abrirBiblioteca,
+  cerrarBiblioteca,
+  cerrarModal,
+  verificarClave
+});
+
+})(); /* ── fin IIFE ── */
 </script>
 
 <!-- NOTA DE SEGURIDAD: Para activar SRI, reemplazá el atributo integrity con el hash real.
@@ -1164,14 +1243,34 @@ document.addEventListener('keydown',e=>{
 })();
 
 /* ── PLAY VIDEO (muted autoplay → click activa audio + controles) ── */
+/* SEGURIDAD: videoId se valida con regex antes de usarlo en el DOM.
+   Solo se permiten caracteres válidos de IDs de YouTube (alfanuméricos, guión y guión bajo).
+   Esto previene cualquier inyección HTML/JS a través del parámetro. */
 function activarVideo(wrapId, videoId){
   const wrap = document.getElementById(wrapId);
-  if(wrap.classList.contains('video-activo')) return;
+  if(!wrap || wrap.classList.contains('video-activo')) return;
+
+  /* Whitelist estricta: IDs de YouTube solo tienen letras, números, - y _ */
+  if(!/^[A-Za-z0-9_\-]{5,20}$/.test(videoId)){
+    console.warn('activarVideo: videoId inválido, operación cancelada.');
+    return;
+  }
+
   wrap.classList.add('video-activo');
-  wrap.innerHTML = `<iframe
-    src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&showinfo=0&playsinline=1"
-    allow="autoplay; fullscreen"
-    style="position:absolute;inset:0;width:100%;height:100%;border:none;pointer-events:auto;"></iframe>`;
+
+  /* Construcción segura del iframe sin concatenación en innerHTML */
+  const iframe = document.createElement('iframe');
+  const params = new URLSearchParams({
+    autoplay: '1', mute: '0', controls: '1',
+    modestbranding: '1', rel: '0', showinfo: '0', playsinline: '1'
+  });
+  iframe.src = `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+  iframe.allow = 'autoplay; fullscreen';
+  iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;pointer-events:auto;';
+  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-popups');
+
+  wrap.innerHTML = '';
+  wrap.appendChild(iframe);
 };
 
 /* ── GRAIN EFFECT ── */
