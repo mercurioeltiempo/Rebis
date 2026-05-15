@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>REBIS</title>
+<!-- ── SEGURIDAD: Content Security Policy ── -->
+<meta http-equiv="Content-Security-Policy"
+  content="default-src 'self'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com; frame-src www.youtube.com; img-src 'self' data: blob:; connect-src 'none';">
+<!-- ── SEGURIDAD: Permissions Policy ── -->
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
+<!-- ── SEGURIDAD: Anti-clickjacking ── -->
+<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,500;1,300&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -249,7 +256,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
     </div>
     <div class="video-info">
       <p class="video-caption">de Animales a Dioses — Mercurio el Tiempo</p>
-      <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank" class="canal-link saturno-link">
+      <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank" rel="noopener noreferrer" class="canal-link saturno-link">
         <span>◈</span>
         Ver Canal Completo — Música
       </a>
@@ -279,7 +286,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
     </div>
     <div class="video-info">
       <p class="video-caption">Placeres Plásticos — Audiovisual</p>
-      <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank" class="canal-link placeres-link">
+      <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank" rel="noopener noreferrer" class="canal-link placeres-link">
         <span>◈</span>
         Ver Canal Completo — Audiovisuales
       </a>
@@ -303,10 +310,9 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
 <div class="apoyo-section">
   <div class="apoyo-title">Apoyar la obra</div>
   <div class="apoyo-mp-wrap">
-    </div>
     <div class="apoyo-mp-info">
       <div class="apoyo-mp-plat">Mercado Pago</div>
-      <div class="apoyo-mp-alias">Alias: <strong>mercurial23</strong></div>
+      <div class="apoyo-mp-alias">Alias: <strong id="mp-alias-display"></strong></div>
     </div>
   </div>
 </div>
@@ -314,11 +320,11 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
 <section id="contacto">
   <div class="contacto-title">Entrar<br>en<br>Contacto</div>
   <div class="contacto-links">
-    <a href="mailto:jerecoosa@gmail.com">jerecoosa@gmail.com ↗</a>
-    <a href="https://www.instagram.com/http_mercurial/" target="_blank">Instagram — @http_mercurial ↗</a>
-    <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank">YouTube — Saturno el Tiempo ↗</a>
-    <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank">YouTube — Placeres Plásticos ↗</a>
-    <a href="https://cafeyhumodetabaco.blogspot.com/" target="_blank">Blog — Café y Humo de Tabaco ↗</a>
+    <a id="contacto-email" href="#" onclick="return false;" style="cursor:pointer">Cargando... ↗</a>
+    <a href="https://www.instagram.com/http_mercurial/" target="_blank" rel="noopener noreferrer">Instagram — @http_mercurial ↗</a>
+    <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank" rel="noopener noreferrer">YouTube — Saturno el Tiempo ↗</a>
+    <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank" rel="noopener noreferrer">YouTube — Placeres Plásticos ↗</a>
+    <a href="https://cafeyhumodetabaco.blogspot.com/" target="_blank" rel="noopener noreferrer">Blog — Café y Humo de Tabaco ↗</a>
   </div>
 </section>
 
@@ -346,17 +352,17 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
         <p class="acceso-sub">
           Este archivo contiene la obra escrita completa.<br>
           Para acceder, colaborá con lo que puedas y escribime<br>
-          a <a href="mailto:jerecoosa@gmail.com">jerecoosa@gmail.com</a> o por <a href="https://www.instagram.com/http_mercurial/" target="_blank">Instagram</a><br>
+          a <a id="bib-email-link" href="#" onclick="return false;" style="cursor:pointer">este correo</a> o por <a href="https://www.instagram.com/http_mercurial/" target="_blank" rel="noopener noreferrer">Instagram</a><br>
           con el comprobante. Te mando la clave.
         </p>
         <div class="acceso-pagos">
           <div class="pago-item">
             <strong>Mercado Pago</strong>
-            Alias: mercurial23<br>
+            Alias: <span id="bib-alias-display"></span><br>
           </div>
           <div class="pago-item">
             <strong>Cafecito</strong>
-            <a href="https://cafecito.app" target="_blank" style="color:var(--mercurial);text-decoration:none;">cafecito.app ↗</a><br>
+            <a href="https://cafecito.app" target="_blank" rel="noopener noreferrer" style="color:var(--mercurial);text-decoration:none;">cafecito.app ↗</a><br>
             Para colaboraciones<br>internacionales
           </div>
         </div>
@@ -967,11 +973,23 @@ const grid = document.getElementById('escritos-grid');
 escritos.forEach((e,i)=>{
   const card = document.createElement('div');
   card.className = 'escrito-card';
-  card.innerHTML = `
-    <div class="escrito-titulo breathe-h3">${e.titulo}</div>
-    <div class="escrito-texto">${e.texto.substring(0,220)}...</div>
-    <button class="escrito-leer" onclick="abrirModal(${i})">→ Leer completo</button>
-  `;
+
+  const tituloEl = document.createElement('div');
+  tituloEl.className = 'escrito-titulo breathe-h3';
+  tituloEl.textContent = e.titulo;
+
+  const textoEl = document.createElement('div');
+  textoEl.className = 'escrito-texto';
+  textoEl.textContent = e.texto.substring(0,220) + '...';
+
+  const leerBtn = document.createElement('button');
+  leerBtn.className = 'escrito-leer';
+  leerBtn.textContent = '→ Leer completo';
+  leerBtn.addEventListener('click', () => abrirModal(i));
+
+  card.appendChild(tituloEl);
+  card.appendChild(textoEl);
+  card.appendChild(leerBtn);
   grid.appendChild(card);
 });
 
@@ -1002,16 +1020,48 @@ function cerrarBiblioteca(){
   document.body.style.overflow='';
 }
 
-function verificarClave(){
+/* ── VERIFICACIÓN SEGURA CON HASH + RATE LIMITING ── */
+/* SHA-256 de la clave real. Para cambiar la clave, reemplazá este hash
+   con el resultado de: crypto.subtle.digest('SHA-256', new TextEncoder().encode('nueva-clave'))
+   convertido a hex. La clave no viaja en texto plano en el código. */
+const CLAVE_HASH = 'bb77f62042ee4cd015ae9c1b5f7a4d7793e3d91f37a71a515a598b9d3be5509b';
+let intentosFallidos = 0;
+let bloqueadoHasta = 0;
+
+async function hashearTexto(texto) {
+  const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));
+  return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+async function verificarClave(){
+  const ahora = Date.now();
+  if (ahora < bloqueadoHasta) {
+    const seg = Math.ceil((bloqueadoHasta - ahora) / 1000);
+    document.getElementById('clave-error').textContent = `Demasiados intentos. Esperá ${seg}s.`;
+    return;
+  }
+
   const val = document.getElementById('clave-input').value.trim().toLowerCase();
-  if(val === 'losdiosesdebenestarlocos'){
+  if (!val) return;
+
+  const hash = await hashearTexto(val);
+
+  if (hash === CLAVE_HASH) {
+    intentosFallidos = 0;
     document.getElementById('bib-acceso').style.display='none';
     document.getElementById('bib-contenido').style.display='block';
     renderBiblioteca();
   } else {
-    document.getElementById('clave-error').textContent='Clave incorrecta.';
+    intentosFallidos++;
     document.getElementById('clave-input').value='';
     document.getElementById('clave-input').focus();
+    if (intentosFallidos >= 5) {
+      bloqueadoHasta = Date.now() + 30000;
+      intentosFallidos = 0;
+      document.getElementById('clave-error').textContent = 'Demasiados intentos. Esperá 30s.';
+    } else {
+      document.getElementById('clave-error').textContent = 'Clave incorrecta.';
+    }
   }
 }
 
@@ -1023,11 +1073,23 @@ function renderBiblioteca(){
   biblioteca.forEach((t,i)=>{
     const card = document.createElement('div');
     card.className = 'bib-card';
-    card.innerHTML = `
-      <div class="bib-card-titulo breathe-h3">${t.titulo}</div>
-      <div class="bib-card-preview">${t.texto.substring(0,180)}...</div>
-      <button class="bib-card-leer" onclick="abrirTextoLib(${i})">→ Leer completo</button>
-    `;
+
+    const tituloEl = document.createElement('div');
+    tituloEl.className = 'bib-card-titulo breathe-h3';
+    tituloEl.textContent = t.titulo;
+
+    const previewEl = document.createElement('div');
+    previewEl.className = 'bib-card-preview';
+    previewEl.textContent = t.texto.substring(0,180) + '...';
+
+    const leerBtn = document.createElement('button');
+    leerBtn.className = 'bib-card-leer';
+    leerBtn.textContent = '→ Leer completo';
+    leerBtn.addEventListener('click', () => abrirTextoLib(i));
+
+    card.appendChild(tituloEl);
+    card.appendChild(previewEl);
+    card.appendChild(leerBtn);
     bibGrid.appendChild(card);
   });
 }
@@ -1046,12 +1108,49 @@ document.addEventListener('keydown',e=>{
 });
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<!-- NOTA DE SEGURIDAD: Para activar SRI, reemplazá el atributo integrity con el hash real.
+     Generalo en: https://www.srihash.org/ pegando la URL del script.
+     Ejemplo de cómo debería quedar:
+     integrity="sha256-HASH_BASE64_AQUI"
+-->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"
+  crossorigin="anonymous"></script>
 <script>
-QRCode.toCanvas(document.getElementById('qr-mp'),'mercurial23',{
-  width:160,margin:1,
-  color:{dark:'#e8e0d0',light:'#0a0a0a'}
-});
+/* ── CONFIGURACIÓN CENTRALIZADA (datos públicos de pago) ── */
+/* El alias de MP es información pública necesaria para recibir pagos.
+   Se centraliza aquí para mantenerlo en un único lugar y se inyecta
+   por JS para dificultar el scraping automatizado de bots simples. */
+(function(){
+  const _a = ['mer','cur','ial','23'].join('');
+  const _u = ['jer','eco','osa','@gm','ail','.co','m'].join('');
+
+  /* Renderizar alias en todos los puntos del DOM */
+  const aliasEls = [
+    document.getElementById('mp-alias-display'),
+    document.getElementById('bib-alias-display')
+  ];
+  aliasEls.forEach(el => { if(el) el.textContent = _a; });
+
+  /* Renderizar email de contacto */
+  const emailLink = document.getElementById('contacto-email');
+  if(emailLink){
+    emailLink.textContent = _u + ' ↗';
+    emailLink.href = 'mailto:' + _u;
+    emailLink.onclick = null;
+  }
+  const bibEmailLink = document.getElementById('bib-email-link');
+  if(bibEmailLink){
+    bibEmailLink.textContent = _u;
+    bibEmailLink.href = 'mailto:' + _u;
+    bibEmailLink.onclick = null;
+  }
+
+  /* Generar QR con el alias */
+  QRCode.toCanvas(document.getElementById('qr-mp'), _a, {
+    width:160, margin:1,
+    color:{dark:'#e8e0d0', light:'#0a0a0a'}
+  });
+})();
 </script>
 
 <script>
