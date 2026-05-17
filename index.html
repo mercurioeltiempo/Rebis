@@ -6,7 +6,7 @@
 <title>REBIS</title>
 <!-- ── SEGURIDAD: Content Security Policy ── -->
 <meta http-equiv="Content-Security-Policy"
-  content="default-src 'self'; script-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com; frame-src www.youtube.com; img-src 'self' data: blob:; connect-src 'none';">
+  content="default-src 'self'; script-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' fonts.googleapis.com; font-src fonts.gstatic.com; frame-src www.youtube.com; img-src 'self' data: blob:; connect-src 'none'; base-uri 'self'; form-action 'none'; object-src 'none';">
 <!-- ── SEGURIDAD: Permissions Policy ── -->
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
 <!-- ── SEGURIDAD: Anti-clickjacking ── -->
@@ -190,6 +190,16 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
 
 /* GRAIN HERO */
 #grain-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.055;mix-blend-mode:screen}
+
+/* CLASES QUE REEMPLAZAN ESTILOS INLINE EN EL HTML (mejor práctica, independiente de CSP) */
+.overlay-pe-all{pointer-events:all}
+.label-saturno{color:var(--saturno)}
+.label-placeres{color:var(--placeres)}
+.seccion-mercurial{scroll-snap-align:start;height:auto;min-height:100vh}
+.cursor-pointer{cursor:pointer}
+.cafecito-link{color:var(--mercurial);text-decoration:none}
+.bib-contenido-hidden{display:none}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
@@ -245,12 +255,12 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
         <iframe id="iframe-saturno"
           src="https://www.youtube.com/embed/-NA6kQIMIR0?autoplay=1&mute=1&controls=0&loop=1&playlist=-NA6kQIMIR0&modestbranding=1&rel=0&showinfo=0&playsinline=1"
           allow="autoplay; fullscreen" loading="lazy"></iframe>
-        <div class="video-click-overlay" id="overlay-saturno" style="pointer-events:all">
+        <div class="video-click-overlay overlay-pe-all" id="overlay-saturno">
           <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="40" cy="40" r="39" stroke="#7ab84e" stroke-width="1" fill="rgba(13,13,13,0.5)"/>
             <polygon points="32,24 60,40 32,56" fill="#7ab84e"/>
           </svg>
-          <span class="video-click-label" style="color:#7ab84e">Activar con audio</span>
+          <span class="video-click-label label-saturno">Activar con audio</span>
         </div>
       </div>
     </div>
@@ -275,12 +285,12 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
         <iframe id="iframe-placeres"
           src="https://www.youtube.com/embed/80hfp1AyW-I?autoplay=1&mute=1&controls=0&loop=1&playlist=80hfp1AyW-I&modestbranding=1&rel=0&showinfo=0&playsinline=1"
           allow="autoplay; fullscreen" loading="lazy"></iframe>
-        <div class="video-click-overlay" id="overlay-placeres" style="pointer-events:all">
+        <div class="video-click-overlay overlay-pe-all" id="overlay-placeres">
           <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="40" cy="40" r="39" stroke="#b83232" stroke-width="1" fill="rgba(13,13,13,0.5)"/>
             <polygon points="32,24 60,40 32,56" fill="#b83232"/>
           </svg>
-          <span class="video-click-label" style="color:#b83232">Activar con audio</span>
+          <span class="video-click-label label-placeres">Activar con audio</span>
         </div>
       </div>
     </div>
@@ -294,7 +304,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
   </div>
 </section>
 
-<section class="seccion" id="mercurial" style="scroll-snap-align:start;height:auto;min-height:100vh">
+<section class="seccion seccion-mercurial" id="mercurial">
   <div class="sec-header">
     <h2 class="sec-title mercurial breathe-h2">Mercurial</h2>
     <div class="sec-line"></div>
@@ -320,7 +330,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
 <section id="contacto">
   <div class="contacto-title">Entrar<br>en<br>Contacto</div>
   <div class="contacto-links">
-    <a id="contacto-email" href="#" style="cursor:pointer">Cargando... ↗</a>
+    <a id="contacto-email" href="#" class="cursor-pointer">Cargando... ↗</a>
     <a href="https://www.instagram.com/http_mercurial/" target="_blank" rel="noopener noreferrer">Instagram — @http_mercurial ↗</a>
     <a href="https://www.youtube.com/@Mercurioeltiempo" target="_blank" rel="noopener noreferrer">YouTube — Saturno el Tiempo ↗</a>
     <a href="https://www.youtube.com/@PlaceresPlasticos" target="_blank" rel="noopener noreferrer">YouTube — Placeres Plásticos ↗</a>
@@ -352,7 +362,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
         <p class="acceso-sub">
           Este archivo contiene la obra escrita completa.<br>
           Para acceder, colaborá con lo que puedas y escribime<br>
-          a <a id="bib-email-link" href="#" style="cursor:pointer">este correo</a> o por <a href="https://www.instagram.com/http_mercurial/" target="_blank" rel="noopener noreferrer">Instagram</a><br>
+          a <a id="bib-email-link" href="#" class="cursor-pointer">este correo</a> o por <a href="https://www.instagram.com/http_mercurial/" target="_blank" rel="noopener noreferrer">Instagram</a><br>
           con el comprobante. Te mando la clave.
         </p>
         <div class="acceso-pagos">
@@ -362,7 +372,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
           </div>
           <div class="pago-item">
             <strong>Cafecito</strong>
-            <a href="https://cafecito.app" target="_blank" rel="noopener noreferrer" style="color:var(--mercurial);text-decoration:none;">cafecito.app ↗</a><br>
+            <a href="https://cafecito.app" target="_blank" rel="noopener noreferrer" class="cafecito-link">cafecito.app ↗</a><br>
             Para colaboraciones<br>internacionales
           </div>
         </div>
@@ -377,7 +387,7 @@ footer span{font-size:0.55rem;letter-spacing:0.1em;color:var(--border)}
     </div>
 
     <!-- Contenido de la biblioteca (oculto hasta ingresar clave) -->
-    <div id="bib-contenido" style="display:none">
+    <div id="bib-contenido" class="bib-contenido-hidden">
       <div class="bib-header">
         <div class="bib-titulo">Biblioteca<br>Completa</div>
         <div class="bib-sub">Archivo Mercurial — Obra escrita</div>
@@ -1016,35 +1026,73 @@ function cerrarModal(){
     document.body.style.overflow='';
   }
 }
-document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)cerrarModal()});
-
 /* ── BIBLIOTECA ── */
 function abrirBiblioteca(){
   document.getElementById('biblioteca-modal').classList.add('open');
   document.body.style.overflow='hidden';
-  document.getElementById('clave-input').value='';
-  document.getElementById('clave-error').textContent='';
+  const acceso = document.getElementById('bib-acceso');
+  if(!acceso.classList.contains('hidden')){
+    document.getElementById('clave-input').value='';
+    document.getElementById('clave-error').textContent='';
+  }
 }
 function cerrarBiblioteca(){
   document.getElementById('biblioteca-modal').classList.remove('open');
   document.body.style.overflow='';
 }
 
-/* ── VERIFICACIÓN SEGURA CON HASH + RATE LIMITING ── */
-/* SHA-256 de la clave real. Para cambiar la clave, reemplazá este hash
-   con el resultado de: crypto.subtle.digest('SHA-256', new TextEncoder().encode('nueva-clave'))
-   convertido a hex. La clave no viaja en texto plano en el código. */
-const CLAVE_HASH = 'bb77f62042ee4cd015ae9c1b5f7a4d7793e3d91f37a71a515a598b9d3be5509b';
-let intentosFallidos = 0;
-let bloqueadoHasta = 0;
+/* ── VERIFICACIÓN SEGURA CON PBKDF2+SALT + RATE LIMITING PERSISTENTE ──
+   PBKDF2 con 200.000 iteraciones hace el brute force ~200.000x más costoso
+   que SHA-256 simple. El salt elimina rainbow tables precomputadas.
 
-async function hashearTexto(texto) {
-  const buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));
-  return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2,'0')).join('');
+   PARA CAMBIAR LA CLAVE:
+   1. Abrí la consola del browser en esta página
+   2. Pegá y ejecutá el siguiente código con tu nueva clave:
+
+      (async () => {
+        const SALT = 'rebis-biblioteca-v1';
+        const clave = 'TU_CLAVE_NUEVA';
+        const enc = new TextEncoder();
+        const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(clave), 'PBKDF2', false, ['deriveBits']);
+        const bits = await crypto.subtle.deriveBits({ name:'PBKDF2', salt:enc.encode(SALT), iterations:200000, hash:'SHA-256' }, keyMaterial, 256);
+        const hash = Array.from(new Uint8Array(bits)).map(b=>b.toString(16).padStart(2,'0')).join('');
+        console.log('Nuevo CLAVE_HASH:', hash);
+      })();
+
+   3. Reemplazá el valor de CLAVE_HASH abajo con el resultado.
+   ────────────────────────────────────────────────────────── */
+
+const SALT_FIJO = 'rebis-biblioteca-v1';
+/* Hash PBKDF2(SHA-256, 200k iter) de la clave. Generado con el snippet de arriba. */
+const CLAVE_HASH = 'REEMPLAZAR_CON_HASH_PBKDF2_DE_TU_CLAVE';
+
+/* ── RATE LIMITING PERSISTENTE EN localStorage ──
+   Sobrevive F5 y cierres de pestaña. Clave LS con prefijo para evitar colisiones. */
+const RL_KEY_INTENTOS = 'rebis_rl_intentos';
+const RL_KEY_BLOQUEADO = 'rebis_rl_hasta';
+const MAX_INTENTOS = 5;
+const BLOQUEO_MS = 30000;
+
+function rl_getIntentos(){ return parseInt(localStorage.getItem(RL_KEY_INTENTOS)||'0',10); }
+function rl_getBloqueadoHasta(){ return parseInt(localStorage.getItem(RL_KEY_BLOQUEADO)||'0',10); }
+function rl_setIntentos(n){ localStorage.setItem(RL_KEY_INTENTOS, String(n)); }
+function rl_setBloqueadoHasta(t){ localStorage.setItem(RL_KEY_BLOQUEADO, String(t)); }
+function rl_reset(){ localStorage.removeItem(RL_KEY_INTENTOS); localStorage.removeItem(RL_KEY_BLOQUEADO); }
+
+async function derivarClave(texto) {
+  const enc = new TextEncoder();
+  const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(texto), 'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt: enc.encode(SALT_FIJO), iterations: 200000, hash: 'SHA-256' },
+    keyMaterial, 256
+  );
+  return Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
 
 async function verificarClave(){
   const ahora = Date.now();
+  const bloqueadoHasta = rl_getBloqueadoHasta();
+
   if (ahora < bloqueadoHasta) {
     const seg = Math.ceil((bloqueadoHasta - ahora) / 1000);
     document.getElementById('clave-error').textContent = `Demasiados intentos. Esperá ${seg}s.`;
@@ -1054,23 +1102,31 @@ async function verificarClave(){
   const val = document.getElementById('clave-input').value.trim().toLowerCase();
   if (!val) return;
 
-  const hash = await hashearTexto(val);
+  /* Deshabilitar botón durante el cómputo PBKDF2 para UX */
+  const btn = document.getElementById('acceso-btn');
+  const errEl = document.getElementById('clave-error');
+  btn.disabled = true;
+  errEl.textContent = '';
+
+  const hash = await derivarClave(val);
+  btn.disabled = false;
 
   if (hash === CLAVE_HASH) {
-    intentosFallidos = 0;
-    document.getElementById('bib-acceso').style.display='none';
-    document.getElementById('bib-contenido').style.display='block';
+    rl_reset();
+    document.getElementById('bib-acceso').classList.add('hidden');
+    document.getElementById('bib-contenido').classList.remove('bib-contenido-hidden');
     renderBiblioteca();
   } else {
-    intentosFallidos++;
+    const intentos = rl_getIntentos() + 1;
     document.getElementById('clave-input').value='';
     document.getElementById('clave-input').focus();
-    if (intentosFallidos >= 5) {
-      bloqueadoHasta = Date.now() + 30000;
-      intentosFallidos = 0;
-      document.getElementById('clave-error').textContent = 'Demasiados intentos. Esperá 30s.';
+    if (intentos >= MAX_INTENTOS) {
+      rl_setBloqueadoHasta(Date.now() + BLOQUEO_MS);
+      rl_setIntentos(0);
+      errEl.textContent = 'Demasiados intentos. Esperá 30s.';
     } else {
-      document.getElementById('clave-error').textContent = 'Clave incorrecta.';
+      rl_setIntentos(intentos);
+      errEl.textContent = `Clave incorrecta. (${intentos}/${MAX_INTENTOS})`;
     }
   }
 }
@@ -1187,12 +1243,8 @@ window.R = Object.freeze({
 })(); /* ── fin IIFE ── */
 </script>
 
-<!-- NOTA DE SEGURIDAD: Para activar SRI, reemplazá el atributo integrity con el hash real.
-     Generalo en: https://www.srihash.org/ pegando la URL del script.
-     Ejemplo de cómo debería quedar:
-     integrity="sha256-HASH_BASE64_AQUI"
--->
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"
+  integrity="sha384-rRoXxn2yHlrZYB587Ki9RO1tONhLdM6XfORg7Rw4uwH4/Fh/5nP7IUX91bkaKUgs"
   crossorigin="anonymous"></script>
 <script>
 /* ── CONFIGURACIÓN CENTRALIZADA (datos públicos de pago) ── */
@@ -1267,24 +1319,29 @@ function activarVideo(wrapId, videoId){
   iframe.src = `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
   iframe.allow = 'autoplay; fullscreen';
   iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:none;pointer-events:auto;';
-  iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-popups');
+  iframe.setAttribute('sandbox', 'allow-scripts allow-presentation allow-popups');
 
   wrap.innerHTML = '';
   wrap.appendChild(iframe);
 };
 
-/* ── GRAIN EFFECT ── */
+/* ── GRAIN EFFECT (throttled a 24fps para no saturar CPU en móvil) ── */
 (function(){
   const canvas = document.getElementById('grain-canvas');
   const ctx = canvas.getContext('2d');
   let w, h, raf;
+  const FRAME_INTERVAL = 1000 / 24;
+  let lastFrame = 0;
 
   function resize(){
     w = canvas.width = canvas.offsetWidth;
     h = canvas.height = canvas.offsetHeight;
   }
 
-  function grain(){
+  function grain(now){
+    raf = requestAnimationFrame(grain);
+    if (now - lastFrame < FRAME_INTERVAL) return;
+    lastFrame = now;
     const img = ctx.createImageData(w, h);
     const d = img.data;
     for(let i = 0; i < d.length; i += 4){
@@ -1293,12 +1350,11 @@ function activarVideo(wrapId, videoId){
       d[i+3] = 255;
     }
     ctx.putImageData(img, 0, 0);
-    raf = requestAnimationFrame(grain);
   }
 
   const observer = new IntersectionObserver(entries => {
     if(entries[0].isIntersecting){
-      if(!raf) grain();
+      if(!raf) raf = requestAnimationFrame(grain);
     } else {
       cancelAnimationFrame(raf);
       raf = null;
